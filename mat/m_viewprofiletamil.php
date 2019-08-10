@@ -259,7 +259,7 @@ td textarea
               $ptype=$row['ptype'];
               ?>
               <td width="250" height="" align="left"> <img src="<?php echo $row['up_profile']; ?>" style=" border: 2px solid #a4214a;" height="300px" width="230px" /></td>
-              <td width:"400">
+              <td width="400">
 
                 <img style="margin-left: 40px;" src="images/LOGOss.png" alt="Wedding Vendors" class="img-responsive" style="">
                 <p style="font-size: 18px;
@@ -338,7 +338,7 @@ td textarea
     </tr>
     <tr class="heig"></tr>
     <tr class="heig">
-      <td width="227" height="29" align="left" class="tdheader">மதம்</td>
+      <td width="200" height="29" align="left" class="tdheader">மதம்</td>
       <td class="tdheader">:</td>
       <td width="311"   class="tdvalue"><?php echo  $row['religion'];?></td>
       <td width="1" class="tdheader">&nbsp;</td>
@@ -348,7 +348,7 @@ td textarea
     </tr>
     <tr class="heig"></tr>
     <tr class="heig">
-      <td width="227" height="29" align="left" class="tdheader">உட்பிரிவு</td>
+      <td width="200" height="29" align="left" class="tdheader">உட்பிரிவு</td>
       <td class="tdheader">:</td>
       <td width="311" class="tdvalue"><?php echo  $row['subcaste'];?></td>
       <td width="1">&nbsp;</td>
@@ -358,7 +358,7 @@ td textarea
     </tr>
     <tr class="heig"></tr>
     <tr class="heig">
-      <td width="227" height="29" align="left"  class="tdheader">பிறந்த தேதி/வயது</td>
+      <td width="200" height="29" align="left"  class="tdheader">பிறந்த தேதி/வயது</td>
       <td class="tdheader">:</td>
       <td width="311" class="tdvalue"><?php echo  $row['dob'];?> (<?php
         $dob= $row['dob'];
@@ -367,7 +367,7 @@ td textarea
         echo $from->diff($to)->y;
         ?>)</td>
         <td width="1">&nbsp;</td>
-        <td width="163" align="left" class="tdheader">கடவுள்</td>      
+        <td width="163" align="left" class="tdheader">குலதெய்வம்</td>      
         <td class="tdheader">:</td>       
         <td width="250" class="tdvalue">
           <?php echo  $row['god'];?>
@@ -376,7 +376,7 @@ td textarea
       <tr class="heig"></tr>
 
       <tr class="heig">
-        <td width="227" height="29" align="left" class="tdheader">பிறந்த நேரம்</td>
+        <td width="200" height="29" align="left" class="tdheader">பிறந்த நேரம்</td>
         <td class="tdheader">:</td>
         <td width="311" class="tdvalue"><?php  $gt= $row['dot'];
         if($row['dot']!='')
@@ -393,7 +393,7 @@ td textarea
         </tr>
         <tr class="heig"></tr>
         <tr class="heig">
-          <td width="227" height="29" align="left"  class="tdheader">கல்வித்தகுதி</td>
+          <td width="200" height="29" align="left"  class="tdheader">கல்வித்தகுதி</td>
           <td class="tdheader">:</td>
           <td width="311" class="tdvalue"><?php echo $row['edu'];?></td>
           <td width="1">&nbsp;</td>
@@ -403,7 +403,7 @@ td textarea
         </tr>
         <tr class="heig"></tr>
         <tr class="heig">
-          <td width="227" height="29" align="left" class="tdheader">தொழில்</td>
+          <td width="200" height="29" align="left" class="tdheader">தொழில்</td>
           <td class="tdheader">:</td>
           <td width="311"  class="tdvalue"><?php echo  $row['working_place'];?></td>
           <td width="1">&nbsp;</td>
@@ -414,7 +414,7 @@ td textarea
         <tr class="heig"></tr>
 
         <tr class="heig">
-          <td width="227" height="29" align="left" class="tdheader">தந்தை பெயர்</td>
+          <td width="200" height="29" align="left" class="tdheader">தந்தை பெயர்</td>
           <td class="tdheader">:</td>
           <td width="311" class="tdvalue"><?php echo  $row['father_name'];?></td>
           <td width="1">&nbsp;</td>
@@ -424,7 +424,7 @@ td textarea
         </tr>
         <tr class="heig"></tr>
         <tr class="heig">
-          <td width="227" height="29" align="left" class="tdheader">தந்தை தொழில்</td>
+          <td width="200" height="29" align="left" class="tdheader">தந்தை தொழில்</td>
           <td class="tdheader">:</td>
           <td width="311" class="tdvalue"><?php echo  $row['father_occ'];?></td>
           <td width="1">&nbsp;</td>
@@ -434,30 +434,30 @@ td textarea
         </tr>
         <tr class="heig"></tr>
         <tr class="heig">
-         <td width="227" height="29" align="left" class="tdheader">சகோதரர்கள்</td>
+         <td width="200" height="29" align="left" class="tdheader">சகோதரர்கள்</td>
          <td class="tdheader">:</td>
-         <td width="311"  class="tdvalue"><?php echo  'அண்ணன்:'.$row['bro'].'&nbsp;/&nbsp;தம்பி:'.$row['ybrother'];?></td>
+         <td width="311"  class="tdvalue"><?php echo  'அண்:'.$row['bro'].'&nbsp;/&nbsp;தம்:'.$row['ybrother'];?></td>
          <td width="1">&nbsp;</td>
          <td width="163" align="left" class="tdheader">சகோதரிகள்</td>
          <td class="tdheader">:</td>
-         <td width="250" class="tdvalue"><?php echo 'அக்கா:'.$row['sis'].'&nbsp;/&nbsp;தங்கை:'.$row['ysister'];?></td>
+         <td width="250" class="tdvalue"><?php echo 'அக்:'.$row['sis'].'&nbsp;/&nbsp;தங்:'.$row['ysister'];?></td>
        </tr>
        <tr class="heig"></tr>
 
        <tr class="heig">
-         <td width="227" height="29" align="left" class="tdheader">சகோதரர்கள்(திருமண)</td>
+         <td width="200" height="29" align="left" class="tdheader">திருமணமானவர்கள்</td>
          <td class="tdheader">:</td>
-         <td width="311" class="tdvalue"><?php echo  $row['mbro'];?></td>
+         <td width="311" class="tdvalue"><?php echo 'ஆண்:'.$row['mbro'].'&nbsp;/&nbsp;பெண்:'.$row['msis'];?></td>
          <td width="1">&nbsp;</td>
 
-         <td width="163" align="left" class="tdheader">சகோதரிகள்(திருமண)</td>
+         <td width="163" align="left" class="tdheader">நிறம்</td>
          <td class="tdheader">:</td>
-         <td width="250" class="tdvalue"><?php echo  $row['msis'];?></td>
+         <td width="250" class="tdvalue"><?php echo  $row['color'];?></td>
        </tr>
        <tr class="heig"></tr>
 
        <tr class="heig">
-        <td width="227" height="29" align="left" class="tdheader">குடும்ப நிலை</td>
+        <td width="200" height="29" align="left" class="tdheader">குடும்ப நிலை</td>
         <td class="tdheader">:</td>
         <td width="311" class="tdvalue"><?php echo  $row['f_status'];?></td>
         <td width="1">&nbsp;</td>
@@ -467,7 +467,7 @@ td textarea
       </tr>
       <tr class="heig"></tr>
       <tr class="heig">
-        <td width="227" height="29" align="left" class="tdheader">ராசி</td>
+        <td width="200" height="29" align="left" class="tdheader">ராசி</td>
         <td class="tdheader">:</td>
         <td width="311" class="tdvalue"><?php echo  $row['rasi'];?></td>
         <td width="1">&nbsp;</td>
@@ -477,7 +477,7 @@ td textarea
       </tr>
       <tr class="heig"></tr>
       <tr class="heig">
-        <td width="227" height="29" align="left" class="tdheader">லக்னம்</td>
+        <td width="200" height="29" align="left" class="tdheader">லக்னம்</td>
         <td class="tdheader">:</td>
         <td width="311" class="tdvalue"><?php echo  $row['lagnam'];?></td>
         <td width="1">&nbsp;</td>
@@ -487,7 +487,7 @@ td textarea
       </tr>
       <tr class="heig"></tr>
  <tr class="heig">
-        <td width="227" height="29" align="left" class="tdheader">எதிர்பார்ப்பு</td>
+        <td width="200" height="29" align="left" class="tdheader">எதிர்பார்ப்பு</td>
         <td class="tdheader">:</td>
         <td colspan="4" width="311" class="tdvalue"><?php echo  $row['expectation'];?></td>
         <!-- <td width="1">&nbsp;</td>

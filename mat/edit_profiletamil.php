@@ -410,10 +410,10 @@ if(isset($_GET['id']))
           <div class="col-md-4 divborder1">
             <div class="form-group" style="margin-top: -20px;">
               <label class="radio-inline" style="margin-left: -40px;">
-                <input type="radio" name="sex" id="optionsRadios3" class="form-control input-sm" value="ஆண்" <?php if($row['gender']=='Male') echo 'checked'; ?> ><span class="regp">ஆண்</span>
+                <input type="radio" name="sex" id="optionsRadios3" class="form-control input-sm" value="ஆண்" <?php if($row['gender']=='ஆண்') echo 'checked'; ?> ><span class="regp">ஆண்</span>
               </label>
               <label class="radio-inline"> 
-                <input type="radio" name="sex" id="optionsRadios4" class="form-control input-sm" value="பெண்" <?php if($row['gender']=='Female') echo 'checked'; ?>><span class="regp">பெண்</span>
+                <input type="radio" name="sex" id="optionsRadios4" class="form-control input-sm" value="பெண்" <?php if($row['gender']=='பெண்') echo 'checked'; ?>><span class="regp">பெண்</span>
               </label>
             </div>
           </div>
@@ -535,7 +535,7 @@ if(isset($_GET['id']))
             </div>
           </div>
 
-          <div class="col-xs-12 col-md-2 divborder1"><label class="control-label">கடவுள்</label></div>
+          <div class="col-xs-12 col-md-2 divborder1"><label class="control-label">குலதெய்வம்</label></div>
           <div class="col-md-4 divborder1">
             <div class="form-group">
               <input type="text" class="form-control input-sm textbox1" name="bestgod" id="bestgod" value="<?php echo  $row['god'];?>" data-title="Please Fill God">
@@ -921,7 +921,7 @@ if(isset($_GET['id']))
                    </div>
                  </div>
 
-                 <div class="col-xs-12 col-md-2 divborder1"><label class="control-label">ல</label></div>
+                 <div class="col-xs-12 col-md-2 divborder1"><label class="control-label">லக்னம்</label></div>
                  <div class="col-md-4 divborder1">
                   <div class="form-group">
                     <select name="lagnam" id="Lagnam" class="form-control input-sm">
@@ -959,7 +959,7 @@ if(isset($_GET['id']))
                      <option>சூரிய மகா திசை</option>
                      <option>செவ்வாய் மகா திசை</option>
                      <option>ராகு மகா திசை</option>
-                     <option>வியாழ மகா திசை</option>
+                     <option>வியாழன் மகா திசை</option>
                      <option>சனி மகா திசை</option>
                      <option>புதன் மகா திசை</option>
                      <option>கேது மகா திசை</option>

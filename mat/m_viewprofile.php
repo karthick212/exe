@@ -446,15 +446,15 @@ td textarea
        </tr>
        <tr class="heig"></tr>
 
-       <tr class="heig">
-         <td width="227" height="29" align="left" class="tdheader">Married Brother's</td>
-         <td class="tdheader">:</td>
-         <td width="311" class="tdvalue"><?php echo  $row['mbro'];?></td>
+        <tr class="heig">
+         <td width="227" height="29" align="left" class="tdheader">Married Bro's/Sis's</td>
+          <td class="tdheader">:</td>
+         <td width="311" class="tdvalue"><?php echo  'Male:'.$row['mbro'].'&nbsp;/&nbsp;Female:'.$row['msis'];?></td>
          <td width="1">&nbsp;</td>
 
-         <td width="163" align="left" class="tdheader">Married Sister's</td>
-         <td class="tdheader">:</td>
-         <td width="250" class="tdvalue"><?php echo  $row['msis'];?></td>
+         <td width="163" align="left" class="tdheader">Color</td>
+          <td class="tdheader">:</td>
+         <td width="200" class="tdvalue"><?php echo  $row['color'];?></td>
        </tr>
        <tr class="heig"></tr>
 

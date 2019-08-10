@@ -667,7 +667,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
             </div>
           </div>
 
-          <div class="col-xs-12 col-md-2 divborder1"><label class="control-label">கடவுள்</label></div>
+          <div class="col-xs-12 col-md-2 divborder1"><label class="control-label">குலதெய்வம்</label></div>
           <div class="col-md-4 divborder1">
             <div class="form-group">
               <input type="text" class="form-control input-sm textbox1" name="bestgod" id="bestgod" value="" data-title="Please Fill God">
@@ -1072,7 +1072,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                      <option>சூரிய மகா திசை</option>
                      <option>செவ்வாய் மகா திசை</option>
                      <option>ராகு மகா திசை</option>
-                     <option>வியாழ மகா திசை</option>
+                     <option>வியாழன் மகா திசை</option>
                      <option>சனி மகா திசை</option>
                      <option>புதன் மகா திசை</option>
                      <option>கேது மகா திசை</option>
