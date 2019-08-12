@@ -224,7 +224,7 @@ td textarea
 
      var popupWin = window.open('', '_blank', 'width=1000,height=1000');
      popupWin.document.open();    
-     popupWin.document.write('<html><head><style>td{font-size: 17px !important;}.tdvalue{padding-left:3px;  font-size:16px;  vertical-align:top;   font-family: Helvetica, sans-serif; font-weight:bold;} .tdheader{  padding-left:0px;  font-size:16px;font-weight: bold;vertical-align:top; } .print:last-child {page-break-after: auto;}@page{size:auto; margin:3mm;}.tblborder{  padding-left: 5px;padding-right: 10px; word-spacing: 15;border-style: solid;border-width: 3px;background-color: white;font-size:16px;width:90px;height:90px;}td textarea{border-color:black!important;font-size:21px;}#table6{margin-top:-10px !important;}#table5{padding-top:120px;padding-bottom: 40px; !important;} tr.heig td{font-size:17px !important;padding-bottom:5px !important; line-height:28px !important;}tbody.b{margin-top}</style></head><body style="margin-top:210px;margin-left:40px; line-height:100px;font-family:Arial !important;font-weight:normal !important;" onload="window.print()">' + divToPrint.innerHTML + '</html>');
+     popupWin.document.write('<html><head><style>td{font-size: 17px !important;}.tdvalue{padding-left:3px;  font-size:16px;  vertical-align:top;   font-family: Helvetica, sans-serif; font-weight:bold;} .tdheader{  padding-left:15px;  font-size:16px;font-weight: bold;vertical-align:top; } .print:last-child {page-break-after: auto;}@page{size:auto; margin:3mm;}.tblborder{  padding-left: 5px;padding-right: 10px; word-spacing: 15;border-style: solid;border-width: 3px;background-color: white;font-size:16px;width:90px;height:90px;}td textarea{border-color:black!important;font-size:21px;}#table6{margin-top:-10px !important;}#table5{padding-top:120px;padding-bottom: 40px; !important;} tr.heig td{font-size:17px !important;padding-bottom:5px !important; line-height:28px !important;}tbody.b{margin-top}</style></head><body style="margin-top:210px;margin-left:40px; line-height:100px;font-family:Arial !important;font-weight:normal !important;" onload="window.print()">' + divToPrint.innerHTML + '</html>');
      popupWin.document.close();
    }
  </script>
@@ -258,7 +258,7 @@ td textarea
               $row = mysql_fetch_assoc($res1);
               $ptype=$row['ptype'];
               ?>
-              <td width="250" height="" align="left"> <img src="<?php echo $row['up_profile']; ?>" style=" border: 2px solid #a4214a;" height="300px" width="230px" /></td>
+              <td width="230" height="" align="left"> <img src="<?php echo $row['up_profile']; ?>" style=" border: 2px solid #a4214a;" height="300px" width="230px" /></td>
               <td width="400">
 
                 <img style="margin-left: 40px;" src="images/LOGOss.png" alt="Wedding Vendors" class="img-responsive" style="">
@@ -325,7 +325,7 @@ td textarea
       <td width="1">&nbsp;</td>
       <td width="200" align="left" class="tdheader">தேதி</td>
       <td width="10" class="tdheader">:</td>
-      <td width="250"   class="tdvalue"><?php echo date('d/m/Y');?></td>
+      <td width="230"   class="tdvalue"><?php echo date('d/m/Y');?></td>
     </tr>
     <tr class="heig">
       <td width="200" height="29" align="left" class="tdheader">பெயர்</td>
@@ -334,7 +334,7 @@ td textarea
       <td width="1">&nbsp;</td>
       <td width="200" align="left" class="tdheader">பாலினம்</td>
       <td width="10" class="tdheader">:</td>
-      <td width="250"   class="tdvalue"><?php echo  $row['gender'];?></td>
+      <td width="230"   class="tdvalue"><?php echo  $row['gender'];?></td>
     </tr>
     <tr class="heig"></tr>
     <tr class="heig">
@@ -344,7 +344,7 @@ td textarea
       <td width="1" class="tdheader">&nbsp;</td>
       <td width="163" align="left" class="tdheader">சாதி</td>
       <td class="tdheader">:</td>
-      <td width="250" class="tdvalue"><?php echo  $row['caste'];?></td>
+      <td width="230" class="tdvalue"><?php echo  $row['caste'];?></td>
     </tr>
     <tr class="heig"></tr>
     <tr class="heig">
@@ -354,7 +354,7 @@ td textarea
       <td width="1">&nbsp;</td>
       <td width="163" align="left" class="tdheader">திருமண நிலை</td>
       <td class="tdheader">:</td>
-      <td width="250" class="tdvalue"><?php echo  $row['mstatus'];?></td>
+      <td width="230" class="tdvalue"><?php echo  $row['mstatus'];?></td>
     </tr>
     <tr class="heig"></tr>
     <tr class="heig">
@@ -369,7 +369,7 @@ td textarea
         <td width="1">&nbsp;</td>
         <td width="163" align="left" class="tdheader">குலதெய்வம்</td>      
         <td class="tdheader">:</td>       
-        <td width="250" class="tdvalue">
+        <td width="230" class="tdvalue">
           <?php echo  $row['god'];?>
         </td>
       </tr>
@@ -386,7 +386,7 @@ td textarea
         <td width="1">&nbsp;</td>
         <td width="163" align="left" class="tdheader">பிறந்த இடம்</td>
         <td class="tdheader">:</td>
-        <td width="250" class="tdvalue">
+        <td width="230" class="tdvalue">
           <?php
           echo $row['birth_place'];
           ?></td>
@@ -399,7 +399,7 @@ td textarea
           <td width="1">&nbsp;</td>
           <td width="163" align="left" class="tdheader">உயரம்</td>
           <td class="tdheader">:</td>
-          <td width="250"  class="tdvalue"><?php echo  $row['height'];?>&nbsp;&nbsp;&nbsp;</td>
+          <td width="230"  class="tdvalue"><?php echo  $row['height'];?>&nbsp;&nbsp;&nbsp;</td>
         </tr>
         <tr class="heig"></tr>
         <tr class="heig">
@@ -409,7 +409,7 @@ td textarea
           <td width="1">&nbsp;</td>
           <td width="163" align="left" class="tdheader">மாத வருமானம்</td>
           <td class="tdheader">:</td>
-          <td width="250"  class="tdvalue"><?php echo  $row['monthlyincome'];?></td>
+          <td width="230"  class="tdvalue"><?php echo  $row['monthlyincome'];?></td>
         </tr>
         <tr class="heig"></tr>
 
@@ -420,7 +420,7 @@ td textarea
           <td width="1">&nbsp;</td>
           <td width="163" align="left" class="tdheader">தாயார் பெயர்</td>
           <td class="tdheader">:</td>
-          <td width="250" class="tdvalue"><?php echo  $row['mother_name'];?></td>
+          <td width="230" class="tdvalue"><?php echo  $row['mother_name'];?></td>
         </tr>
         <tr class="heig"></tr>
         <tr class="heig">
@@ -430,7 +430,7 @@ td textarea
           <td width="1">&nbsp;</td>
           <td width="163" align="left" class="tdheader">தாயார் தொழில்</td>
           <td class="tdheader">:</td>
-          <td width="250" class="tdvalue"><?php echo  $row['mother_occ'];?></td>
+          <td width="230" class="tdvalue"><?php echo  $row['mother_occ'];?></td>
         </tr>
         <tr class="heig"></tr>
         <tr class="heig">
@@ -440,7 +440,7 @@ td textarea
          <td width="1">&nbsp;</td>
          <td width="163" align="left" class="tdheader">சகோதரிகள்</td>
          <td class="tdheader">:</td>
-         <td width="250" class="tdvalue"><?php echo 'அக்:'.$row['sis'].'&nbsp;/&nbsp;தங்:'.$row['ysister'];?></td>
+         <td width="230" class="tdvalue"><?php echo 'அக்:'.$row['sis'].'&nbsp;/&nbsp;தங்:'.$row['ysister'];?></td>
        </tr>
        <tr class="heig"></tr>
 
@@ -452,7 +452,7 @@ td textarea
 
          <td width="163" align="left" class="tdheader">நிறம்</td>
          <td class="tdheader">:</td>
-         <td width="250" class="tdvalue"><?php echo  $row['color'];?></td>
+         <td width="230" class="tdvalue"><?php echo  $row['color'];?></td>
        </tr>
        <tr class="heig"></tr>
 
@@ -463,7 +463,7 @@ td textarea
         <td width="1">&nbsp;</td>
         <td width="163" align="left" class="tdheader">ஊர்</td>
         <td class="tdheader">:</td>
-        <td width="250" class="tdvalue"><?php echo  $row['city'];?></td>
+        <td width="230" class="tdvalue"><?php echo  $row['city'];?></td>
       </tr>
       <tr class="heig"></tr>
       <tr class="heig">
@@ -473,7 +473,7 @@ td textarea
         <td width="1">&nbsp;</td>
         <td width="163" align="left" class="tdheader">நட்சத்திரம்</td>
         <td class="tdheader">:</td>
-        <td width="250" class="tdvalue"><?php echo  $row['star'];?></td>
+        <td width="230" class="tdvalue"><?php echo  $row['star'];?></td>
       </tr>
       <tr class="heig"></tr>
       <tr class="heig">
@@ -483,7 +483,7 @@ td textarea
         <td width="1">&nbsp;</td>
         <td width="163" align="left" class="tdheader">திசை</td>
         <td class="tdheader">:</td>
-        <td width="250"  class="tdvalue"><?php echo  $row['thisai'];?></td>        
+        <td width="230"  class="tdvalue"><?php echo  $row['thisai'];?></td>        
       </tr>
       <tr class="heig"></tr>
  <tr class="heig">
@@ -493,7 +493,7 @@ td textarea
         <!-- <td width="1">&nbsp;</td>
         <td width="163" align="left" class="tdheader">Thesai</td>
         <td class="tdheader">:</td>
-        <td width="250"  class="tdvalue"><?php echo  $row['thisai'];?></td>         -->
+        <td width="230"  class="tdvalue"><?php echo  $row['thisai'];?></td>         -->
       </tr>
     </table></td>
   </tr>

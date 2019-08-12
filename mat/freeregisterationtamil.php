@@ -513,7 +513,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   
   <section class="row final-inner-headerss">
     <div class="container">
-      <h2 class="this-title">இலவச பதிவு</h2>
+      <h2 class="this-title"></h2>
     </div>
   </section>
   <section class="row final-breadcrumb">
