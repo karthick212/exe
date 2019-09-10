@@ -6,15 +6,17 @@ const { parse } = require('querystring')
 var multer = require('multer')
 var FormData = require('form-data')
 var form = new FormData()
-const userActivity = require('../controller/user-Controller')
+const busActivity = require('../controller/bus-Controller')
 const jwt = require('jsonwebtoken')
 var dbconfig = require('../config/db')
 const path = require('path');
 
 // Add User
-router.post('/adduser', (request, response) => {  
+router.post('/addstop', (request, response) => {  
   let ResMsg = {}  
-  userActivity.AddUser(request.body, (err, rows) => {
+  console.log(request.body)
+  busActivity.AddStop(request.body, (err, rows) => {
+
     if (err) throw err
       if (rows.affectedRows>0) {      
         ResMsg.status = 'success'
@@ -28,9 +30,9 @@ router.post('/adduser', (request, response) => {
 })
 
 // Update User
-router.post('/updateuser', (request, response) => {  
+router.post('/updatestop', (request, response) => {  
   let ResMsg = {}  
-  userActivity.UpdateUser(request.body, (err, rows) => {
+  busActivity.UpdateStop(request.body, (err, rows) => {
     if (err) throw err
       if (rows.affectedRows>0) {      
         ResMsg.status = 'success'
@@ -44,9 +46,9 @@ router.post('/updateuser', (request, response) => {
 })
 
 // Update User
-router.post('/deleteuser', (request, response) => {  
+router.post('/deletestop', (request, response) => {  
   let ResMsg = {}  
-  userActivity.DeleteUser(request.body, (err, rows) => {
+  busActivity.DeleteStop(request.body, (err, rows) => {
     if (err) throw err
       if (rows.affectedRows>0) {      
         ResMsg.status = 'success'
@@ -61,16 +63,16 @@ router.post('/deleteuser', (request, response) => {
 
 
 // View User
-router.get('/viewUser', (request, response) => {  
+router.get('/viewstop', (request, response) => {  
   let ResMsg = {}
   let res=request.query
   var mobno=res.mobno;
   var id=res.id;
-  userActivity.getUserValue(res, (err, rows) => {
+  busActivity.getStop(res, (err, rows) => {
     if (err) throw err
       if (rows) {      
       ResMsg.status = 'success'
-      ResMsg.message = 'list of user'
+      ResMsg.message = 'list of stop'
       ResMsg.data=rows
     } else {
       ResMsg.message = 'There is no records found'

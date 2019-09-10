@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const adminActivity = require("../controller/admin-Controller");
 const jwt = require("jsonwebtoken");
+var dbconfig = require("../config/db");
 SECRET_KEY = "thisismysecretkey";
 
 router.post("/login1", function(req, res, next) {
@@ -54,7 +55,13 @@ router.post("/mailAuthentication", (req, res, next) => {
   adminActivity.mailAuth(qry,(err,count)=>{
     //console.log(count[0].cnt);
     if(err) res.json(err);
-    else res.json(count[0].cnt);
+    else 
+{
+  if(count[0].cnt>0)
+  res.json({"status":"success","message":""});
+else 
+  res.json({"status":"failed","message":"There is no email address found"});
+}
   })
 });
 
@@ -63,17 +70,38 @@ router.post("/login", function(req, res, next) {
     if (err) {
       res.send("Server Error");
     } else {
-    res.json(rows[0].cnt);
+      if(count[0].cnt>0)
+  res.json({"status":"success","message":""});
+else 
+  res.json({"status":"failed","message":"There is no email address found"});
     }
   });
 });
 
+router.get('/viewRegister',function(req,res,err){
+  let cond="";
+  var user=[]
+  if(req.query.email!=undefined)
+  {
+    cond=" and Email = ? AND Password=?";
+    user=[req.query.email,req.query.password]
+  }
+  var itemss=  dbconfig.query("select * from tbl_register where isActive<>'0'"+cond,user,function(err,result,fields){
+    if(err){
+      res.json(err);
+    }else{
+      res.json(result);
+    }  
+  });  
+  console.log(itemss)
+});
+
 
 function FormatNumberLength(num, length) {
-    var r = "" + num;
-    while (r.length < length) {
-        r = "0" + r;
-    }
-    return r;
+  var r = "" + num;
+  while (r.length < length) {
+    r = "0" + r;
+  }
+  return r;
 }
 module.exports = router;

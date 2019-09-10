@@ -7,6 +7,8 @@ const path = require('path');
 const app = express(),
 config = require('./config/DB'),
 adminRoutes = require('./server/routes/admin');
+userRoutes = require('./server/routes/user');
+busRoutes = require('./server/routes/bus');
 
 config.connect(function(err) {
   
@@ -28,6 +30,8 @@ config.connect(function(err) {
       app.use(body_parser.urlencoded({limit: '50mb'}));
       app.use(cors());
       app.use('/api/admin', adminRoutes);
+      app.use('/api/user', userRoutes);
+      app.use('/api/bus', busRoutes);
       app.engine('html', require('ejs').renderFile);
       app.set('view engine', 'html');
       app.set('view engine', 'ejs');

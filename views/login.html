@@ -95,6 +95,21 @@
 
 									</div><!-- /.widget-main -->
 
+									<div class="toolbar clearfix">
+										 <div>
+											<!-- <a href="#" data-target="#forgot-box" class="forgot-password-link">
+												<i class="ace-icon fa fa-arrow-left"></i>
+												Forgot Password?
+											</a> -->
+										</div> 
+
+										<div>
+											<a href="#" data-target="#signup-box" class="user-signup-link">
+												SignUp
+												<i class="ace-icon fa fa-arrow-right"></i>
+											</a>
+										</div>
+									</div>
 
 								</div><!-- /.widget-body -->
 							</div><!-- /.login-box -->
@@ -145,7 +160,7 @@
 									<div class="widget-main">
 										<h4 class="header green lighter bigger">
 											<i class="ace-icon fa fa-users blue"></i>
-											New User Registration
+											New Admin Registration
 										</h4>
 
 										<div class="space-6"></div>
@@ -155,33 +170,87 @@
 											<fieldset>
 												<label class="block clearfix">
 													<span class="block input-icon input-icon-right">
-														<input type="email" class="form-control" placeholder="Email" />
-														<i class="ace-icon fa fa-envelope"></i>
-													</span>
-												</label>
-
-												<label class="block clearfix">
-													<span class="block input-icon input-icon-right">
-														<input type="text" class="form-control" placeholder="Username" />
+														<input type="text" class="form-control" placeholder="Name" ng-model="name" />
 														<i class="ace-icon fa fa-user"></i>
 													</span>
 												</label>
 
 												<label class="block clearfix">
 													<span class="block input-icon input-icon-right">
-														<input type="password" class="form-control" placeholder="Password" />
+														<input type="email" class="form-control" placeholder="Email" ng-model="email"/>
+														<i class="ace-icon fa fa-envelope"></i>
+													</span>
+												</label>
+
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input type="password" class="form-control" placeholder="Password" ng-model="password1" />
 														<i class="ace-icon fa fa-lock"></i>
 													</span>
 												</label>
 
 												<label class="block clearfix">
 													<span class="block input-icon input-icon-right">
-														<input type="password" class="form-control" placeholder="Repeat password" />
+														<input type="password" class="form-control" placeholder="Confirm password" ng-model="password2" />
 														<i class="ace-icon fa fa-retweet"></i>
 													</span>
 												</label>
 
-												<label class="block">
+												
+
+												<label class="block clearfix">
+													<span class="block input-icon input-icon-right">
+														<input type="text" class="form-control" placeholder="Mobile Number" ng-model="mobno" />
+														<i class="ace-icon fa fa-mobile"></i>
+													</span>
+												</label>
+
+												<label for="form-field-select-1"></label>
+
+												<select class="form-control" id="form-field-select-1" ng-model="state">
+													<option value="">Select State</option>
+													<option value="AL">Kerela</option>
+													<option value="AK">Karnataka</option>
+													<option value="AZ">Tamilnadu</option>
+													<option value="AR">Andhra Pradesh</option>
+													<option value="CA">Goa</option>
+													<option value="CO">Delhi</option>
+													<option value="CT">Gujarat</option>
+												</select>
+
+												<label for="form-field-select-1"></label>
+
+												<select class="form-control" id="form-field-select-1" ng-model="language">
+													<option value="">Select Language</option>
+													<option value="AL">English</option>
+													<option value="AK">Telugu</option>
+													<option value="AZ">Kannada</option>
+													<option value="AR">Tamil</option>
+													<option value="CA">Malayalam</option>
+													<option value="CO">Hindi</option>
+												</select>
+
+												<label for="form-field-select-1"></label>
+
+												<select class="form-control" id="form-field-select-1" ng-model="servicetype">
+													<option value="">Service Type</option>
+													<option value="AL">Local </option>
+													<option value="AK">Long Distance</option>
+												</select>
+
+
+
+												<label for="form-field-select-1"></label>
+
+												<select class="form-control" id="form-field-select-1" ng-model="busservicetype">
+													<option value="">Bus Service Type</option>
+													<option value="AL">KSRTC</option>
+													<option value="AK">BMTC</option>
+													<option value="AZ">TNSTC</option>
+												</select>
+
+
+												<label class="block clearfix" >
 													<input type="checkbox" class="ace" />
 													<span class="lbl">
 														I accept the
@@ -197,11 +266,12 @@
 														<span class="bigger-110">Reset</span>
 													</button>
 
-													<button type="button" class="width-65 pull-right btn btn-sm btn-success">
+													<button type="button" class="width-65 pull-right btn btn-sm btn-success" ng-click="signup()" >
 														<span class="bigger-110">Register</span>
 
 														<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
 													</button>
+													{{success}}
 												</div>
 											</fieldset>
 										</form>
@@ -296,6 +366,7 @@
 			app.controller('ctrl', function ($scope, $http) {
 				$scope.email = null;
 				$scope.status="";
+				$scope.success="";
 				$scope.postdata = function () {
 					var data = {
 						email: $scope.email,
@@ -318,6 +389,34 @@
 					$scope.headers = response.headers();
 				});
 				};
+				$scope.signup = function () {
+				var data = {
+					name: $scope.name,
+					email: $scope.email,
+					password: $scope.password1,
+					mobno: $scope.mobno,
+					state: $scope.state,
+					language: $scope.language,
+					servicetype: $scope.servicetype,
+					busservicetype: $scope.busservicetype
+				};
+				$http.post('http://localhost:5000/api/admin/addadmin', JSON.stringify(data)).then(function (response) {
+					if (response.data)
+  $scope.success="Register Successfully...!!"
+						setTimeout(function(){
+  $scope.msg = "Post Data Submitted Successfully!";
+					window.location.href = "./login.html";
+}, 1000);						
+					$scope.statusval = response.status;
+					$scope.statustext = response.statusText;
+					$scope.headers = response.headers();
+				}, function (response) {
+					$scope.msg = "Service not Exists";
+					$scope.statusval = response.status;
+					$scope.statustext = response.statusText;
+					$scope.headers = response.headers();
+				});
+			};
 			});
 		</script>
 	</body>
