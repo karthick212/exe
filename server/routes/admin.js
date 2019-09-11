@@ -78,15 +78,18 @@ else
   });
 });
 
-router.get('/viewRegister',function(req,res,err){
+router.post('/viewRegister',function(req,res,err){
   let cond="";
-  var user=[]
-  if(req.query.email!=undefined)
+  let user=req.body;
+  //let user=req.query;
+  var arr=[]
+
+  if(user.email!=undefined)
   {
     cond=" and Email = ? AND Password=?";
-    user=[req.query.email,req.query.password]
+    arr=[user.email,user.password]
   }
-  var itemss=  dbconfig.query("select * from tbl_register where isActive<>'0'"+cond,user,function(err,result,fields){
+  var itemss=  dbconfig.query("select * from tbl_register where isActive<>'0'"+cond,arr,function(err,result,fields){
     if(err){
       res.json(err);
     }else{

@@ -70,12 +70,104 @@ router.get('/viewstop', (request, response) => {
   var id=res.id;
   busActivity.getStop(res, (err, rows) => {
     if (err) throw err
-      if (rows) {      
+      if (rows.length>0) {      
       ResMsg.status = 'success'
       ResMsg.message = 'list of stop'
       ResMsg.data=rows
     } else {
-      ResMsg.message = 'There is no records found'
+      ResMsg.message = 'There are no records found'
+      ResMsg.status = 'failed'
+    }
+    response.json(ResMsg)
+//response.send(JSON.stringify(ResMsg))
+})
+})
+
+//Bus Routes
+router.post('/addroute', (request, response) => {  
+  let ResMsg = {}  
+  busActivity.AddRoute(request.body, (err, rows) => {
+
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Registered Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// Update User
+router.post('/updateroute', (request, response) => {  
+  let ResMsg = {}  
+  busActivity.UpdateRoute(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Updated Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// Update User
+router.post('/deleteroute', (request, response) => {  
+  let ResMsg = {}  
+  busActivity.DeleteRoute(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Deleted Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// View User
+router.get('/viewroute', (request, response) => {  
+  let ResMsg = {}
+  let res=request.query
+  var mobno=res.mobno;
+  var id=res.id;
+  busActivity.getRoute(res, (err, rows) => {
+    if (err) throw err
+      console.log(rows);
+      if (rows.length>0) {      
+      ResMsg.status = 'success'
+      ResMsg.message = 'list of routes'
+      ResMsg.data=rows
+    } else {
+      ResMsg.message = 'There are no records found'
+      ResMsg.status = 'failed'
+    }
+    response.json(ResMsg)
+//response.send(JSON.stringify(ResMsg))
+})
+})
+
+// View User
+router.get('/viewroutedetails', (request, response) => {  
+  let ResMsg = {}
+  let res=request.query
+  var id=res.id;
+  busActivity.getRouteDetails(res, (err, rows) => {
+    if (err) throw err
+      console.log(rows)
+      if (rows.length>0) {      
+      ResMsg.status = 'success'
+      ResMsg.message = 'list of routes'
+      ResMsg.data=rows
+    } else {
+      ResMsg.message = 'There are no records found'
       ResMsg.status = 'failed'
     }
     response.json(ResMsg)
