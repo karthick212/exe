@@ -26,7 +26,7 @@ UpdateStop(user,callback) {
   dbconfig.query(insertQuery,arr1, (err, results) => {
     if(err) throw err;
     if (results.affectedRows > 0) {
-      common.LogData(user.loginid,'BusCreation',user.id,'Update');
+      common.LogData(user.loginid,'StopCreation',user.id,'Update');
       return callback(null, results)
     }
     else {
@@ -39,7 +39,7 @@ DeleteStop(user,callback) {
   return dbconfig.query(insertQuery, [user.id,user.loginid], (err, results) => {
     if(err) throw err;
     if (results.affectedRows > 0) {
-      common.LogData(user.loginid,'BusCreation',user.id,'Delete');
+      common.LogData(user.loginid,'StopCreation',user.id,'Delete');
       return callback(null, results)
     }
     else {
@@ -167,7 +167,73 @@ getRouteDetails(user,callback) {
    else
      return callback(null, results)
  })
+},
+ 
+ // Add Bus creation
+ AddBus(user,callback) {
+
+  let todate=common.todaydate();
+  var arr1=[user.busno, user.busregno,user.servicetype,user.routeid,user.loginid,todate]
+  let insertQuery = "INSERT INTO `tblbus` (`BusNo`, `BusRegisterNo`, `ServiceType`, `RouteId`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,?,?,1,?,?);"
+  return dbconfig.query(insertQuery, arr1, (err, results) => {
+    if(err) throw err;
+    if (results.affectedRows > 0) {
+      common.LogData(user.loginid,'BusCreation',results.insertId,'Save');
+      return callback(null, results)
+    }
+    else {
+      return callback(null, results)  
+    }
+  })  
+},
+UpdateBus(user,callback) {
+  let todate=common.todaydate();  
+  var arr1=[user.busno, user.busregno,user.servicetype,user.routeid,user.loginid,todate,user.id]
+  let insertQuery = 'Update `tblbus` set BusNo=?,BusRegisterNo=?,ServiceType=?,RouteId=?,LoginId=?,SDate=?  where BusId=?'
+  dbconfig.query(insertQuery,arr1, (err, results) => {
+    if(err) throw err;
+    if (results.affectedRows > 0) {
+      common.LogData(user.loginid,'BusCreation',user.id,'Update');
+      return callback(null, results)
+    }
+    else {
+      return callback(null, results)  
+    }
+  })
+},
+DeleteBus(user,callback) {
+  let insertQuery = 'Update `tblbus` set isActive=0  where BusId=?'
+  return dbconfig.query(insertQuery, [user.id,user.loginid], (err, results) => {
+    if(err) throw err;
+    if (results.affectedRows > 0) {
+      common.LogData(user.loginid,'BusCreation',user.id,'Delete');
+      return callback(null, results)
+    }
+    else {
+      return callback(null, results)  
+    }
+  })
+},
+getBus(user,callback) {
+  let cond=""
+  var param=[]
+  console.log(user)
+  if(user.id!=undefined)
+  {
+    cond=" and BusId=?";
+    param=user.id
+  }
+
+  let insertQuery = "select * from vw_bus where isActive<>'0' "+cond
+  return dbconfig.query(insertQuery,param, (err, results) => {
+    if(err){
+     return callback(null, err)
+   }
+   else
+     return callback(null, results)
+ })
 }
+
 
 }
 

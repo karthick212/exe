@@ -32,9 +32,7 @@ config.connect(function(err) {
       app.use('/api/admin', adminRoutes);
       app.use('/api/user', userRoutes);
       app.use('/api/bus', busRoutes);
-      app.engine('html', require('ejs').renderFile);
       app.set('view engine', 'html');
-      app.set('view engine', 'ejs');
       const port = process.env.PORT || 5000;
 
       const server = app.listen(port, function(){
