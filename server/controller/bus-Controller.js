@@ -71,9 +71,9 @@ getStop(user,callback) {
 AddRoute(user,callback) {
 
   let todate=common.todaydate();
-  var arrMas=[user.routeno, user.routename, user.platform,user.loginid,todate]
+  var arrMas=[user.routeno, user.sourceid, user.destinationid, user.platform,user.loginid,todate]
   var arrDet=user.routedetails
-  let insertQuery = "INSERT INTO `tblbusroutemaster` (`RouteNo`, `RouteName`, `Platform`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,?, 1,?,?)"
+  let insertQuery = "INSERT INTO `tblbusroutemaster` (`RouteNo`, `SourceId`, `DestinationId`, `Platform`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,?,?,1,?,?)"
   return dbconfig.query(insertQuery, arrMas, (err, results) => {
     if(err) throw err;
     arrDet.map(m=>{
@@ -94,9 +94,9 @@ AddRoute(user,callback) {
 },
 UpdateRoute(user,callback) {
   let todate=common.todaydate();  
-  var arrMas=[user.routeno, user.routename, user.platform,user.loginid,todate,user.id]
+  var arrMas=[user.routeno, user.sourceid, user.destinationid, user.platform,user.loginid,todate,user.id]
   var arrDet=user.routedetails
-  let insertQuery = 'Update `tblbusroutemaster` set RouteNo=?,RouteName=?,Platform=?,LoginId=?,SDate=?  where RouteId=? '
+  let insertQuery = 'Update `tblbusroutemaster` set RouteNo=?,SourceId=?,DestinationId=?,Platform=?,LoginId=?,SDate=?  where RouteId=? '
   dbconfig.query(insertQuery,arrMas, (err, results) => {
     if(err) throw err;
     dbconfig.query("delete from tblbusroutedetails where RouteId=?",user.id,(err,results2)=>{
@@ -130,6 +130,19 @@ DeleteRoute(user,callback) {
     }
   })
 },
+getStation(user,callback) {
+  let cond=""
+  var param=[]
+
+  let insertQuery = "select * from tblbusstop where isActive<>'0' and StopType='Station'"
+  return dbconfig.query(insertQuery,param, (err, results) => {
+    if(err){
+     return callback(null, err)
+   }
+   else
+     return callback(null, results)
+ })
+},
 getRoute(user,callback) {
   let cond=""
   var param=[]
@@ -140,7 +153,7 @@ getRoute(user,callback) {
     param=user.id
   }
 
-  let insertQuery = "select * from tblbusroutemaster where isActive<>'0' "+cond
+  let insertQuery = "select DISTINCT routeid,RouteNo,RouteName,LoginId, Platform from vw_busroute where isActive<>'0' "+cond
   return dbconfig.query(insertQuery,param, (err, results) => {
     if(err){
      return callback(null, err)

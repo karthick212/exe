@@ -133,6 +133,29 @@ router.post('/deleteroute', (request, response) => {
 })
 
 // View User
+router.get('/viewstation', (request, response) => {  
+  let ResMsg = {}
+  let res=request.query
+  var mobno=res.mobno;
+  var id=res.id;
+  busActivity.getRoute(res, (err, rows) => {
+    if (err) throw err
+      console.log(rows);
+      if (rows.length>0) {      
+      ResMsg.status = 'success'
+      ResMsg.message = 'list of routes'
+      ResMsg.data=rows
+    } else {
+      ResMsg.message = 'There are no records found'
+      ResMsg.status = 'failed'
+    }
+    response.json(ResMsg)
+//response.send(JSON.stringify(ResMsg))
+})
+})
+
+
+// View User
 router.get('/viewroute', (request, response) => {  
   let ResMsg = {}
   let res=request.query
@@ -161,7 +184,6 @@ router.get('/viewroutedetails', (request, response) => {
   var id=res.id;
   busActivity.getRouteDetails(res, (err, rows) => {
     if (err) throw err
-      console.log(rows)
       if (rows.length>0) {      
       ResMsg.status = 'success'
       ResMsg.message = 'list of routes'
@@ -246,6 +268,5 @@ router.get('/viewbus', (request, response) => {
 //response.send(JSON.stringify(ResMsg))
 })
 })
-
 
 module.exports = router
