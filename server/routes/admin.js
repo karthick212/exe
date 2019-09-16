@@ -107,4 +107,146 @@ function FormatNumberLength(num, length) {
   }
   return r;
 }
+
+// Add Suspend
+router.post('/addsuspend', (request, response) => {  
+  let ResMsg = {}  
+  adminActivity.AddSuspend(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Registered Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// Update User
+router.post('/updatesuspend', (request, response) => {  
+  let ResMsg = {}  
+  adminActivity.UpdateSuspend(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Updated Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// Update User
+router.post('/deletesuspend', (request, response) => {  
+  let ResMsg = {}  
+  adminActivity.DeleteSuspend(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Deleted Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+
+// View User
+router.get('/viewsuspend', (request, response) => {  
+  let ResMsg = {}
+  let res=request.query
+  var mobno=res.mobno;
+  var id=res.id;
+  adminActivity.getSuspend(res, (err, rows) => {
+    if (err) throw err
+      if (rows.length>0) {      
+      ResMsg.status = 'success'
+      ResMsg.message = 'list of user'
+      ResMsg.data=rows
+    } else {
+      ResMsg.message = 'There is no records found'
+      ResMsg.status = 'failed'
+    }
+    response.json(ResMsg)
+//response.send(JSON.stringify(ResMsg))
+})
+})
+
+
+// Add Suspend
+router.post('/addbusmapping', (request, response) => {  
+  let ResMsg = {}  
+  adminActivity.AddMapping(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Registered Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// Update User
+router.post('/updatebusmapping', (request, response) => {  
+  let ResMsg = {}  
+  adminActivity.UpdateMapping(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Updated Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// Update User
+router.post('/deletebusmapping', (request, response) => {  
+  let ResMsg = {}  
+  adminActivity.DeleteMapping(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Deleted Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+
+// View User
+router.get('/viewbusmapping', (request, response) => {  
+  let ResMsg = {}
+  let res=request.query
+  var mobno=res.mobno;
+  var id=res.id;
+  adminActivity.getMapping(res, (err, rows) => {
+    if (err) throw err
+      if (rows.length>0) {      
+      ResMsg.status = 'success'
+      ResMsg.message = 'list of user'
+      ResMsg.data=rows
+    } else {
+      ResMsg.message = 'There is no records found'
+      ResMsg.status = 'failed'
+    }
+    response.json(ResMsg)
+//response.send(JSON.stringify(ResMsg))
+})
+})
+
 module.exports = router;

@@ -138,7 +138,7 @@ router.get('/viewstation', (request, response) => {
   let res=request.query
   var mobno=res.mobno;
   var id=res.id;
-  busActivity.getRoute(res, (err, rows) => {
+  busActivity.getStation(res, (err, rows) => {
     if (err) throw err
       console.log(rows);
       if (rows.length>0) {      
