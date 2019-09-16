@@ -142,7 +142,7 @@ loadConductorMapping(user,callback) {
   let cond=""
   var param=[]
 
-  let insertQuery = "select * from vw_conductorsuspend where isActive<>'0' and CurDate() between FromDate and ToDate"
+  let insertQuery = "select * from vw_conductorsuspend where isActive<>'0' and Cid not in (select cid from tblconductorsuspend where isActive<>'0' and CurDate() between FromDate and ToDate)"
   return dbconfig.query(insertQuery,param, (err, results) => {
     if(err){
      return callback(null, err)
