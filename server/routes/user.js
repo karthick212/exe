@@ -152,6 +152,27 @@ router.get('/viewconductor', (request, response) => {
 })
 
 // View User
+router.get('/loadconductormapping', (request, response) => {  
+  let ResMsg = {}
+  let res=request.query
+  var mobno=res.mobno;
+  var id=res.id;
+  userActivity.loadConductorMapping(res, (err, rows) => {
+    if (err) throw err
+      if (rows) {      
+      ResMsg.status = 'success'
+      ResMsg.message = 'list of user'
+      ResMsg.data=rows
+    } else {
+      ResMsg.message = 'There is no records found'
+      ResMsg.status = 'failed'
+    }
+    response.json(ResMsg)
+//response.send(JSON.stringify(ResMsg))
+})
+})
+
+// View User
 router.get('/conductor/Auto', (request, response) => {  
   let ResMsg = {}
   userActivity.ConductorId((rows) => {
