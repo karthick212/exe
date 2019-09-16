@@ -68,7 +68,7 @@ router.get('/viewUser', (request, response) => {
   var id=res.id;
   userActivity.getUserValue(res, (err, rows) => {
     if (err) throw err
-      if (rows) {      
+      if (rows.length>0) {      
       ResMsg.status = 'success'
       ResMsg.message = 'list of user'
       ResMsg.data=rows
@@ -159,7 +159,7 @@ router.get('/loadconductormapping', (request, response) => {
   var id=res.id;
   userActivity.loadConductorMapping(res, (err, rows) => {
     if (err) throw err
-      if (rows) {      
+      if (rows.length>0) {      
       ResMsg.status = 'success'
       ResMsg.message = 'list of user'
       ResMsg.data=rows
