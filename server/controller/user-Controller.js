@@ -129,7 +129,7 @@ getConductor(user,callback) {
     param=user.id
   }
 
-  let insertQuery = "select * from tblconductor where isActive<>'0' "+cond
+  let insertQuery = "select id,`CID`, `Name`, `FatherName`, `LicenseNo`,date_format(`ExpiryDate`,'%d-%b-%Y') `ExpiryDate`,`Gender`, `MobileNo`,date_format(`DOB`,'%d-%b-%Y') as `DOB`, `Address`, `State`, `Country`, `Pincode`, `Marital`, `isActive`, `LoginId`, `SDate` from tblconductor where isActive<>'0' "+cond
   return dbconfig.query(insertQuery,param, (err, results) => {
     if(err){
      return callback(null, err)
