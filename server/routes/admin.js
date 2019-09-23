@@ -5,6 +5,63 @@ const jwt = require("jsonwebtoken");
 var dbconfig = require("../config/db");
 SECRET_KEY = "thisismysecretkey";
 
+// OTP-API
+router.post('/otp', (request, response) => {
+  let Mobilenum = request.body.mobno
+  let Role = request.body.roll
+  let imeino = request.body.imeino
+  let ResMsg = {}
+  adminActivity.GenOtp(Mobilenum, (err, rows, otp) => {
+    if (err) throw err
+      if (rows.length) {
+        // const smsCont =
+        // 'Dear Customer, your OTP for SMS notification registration is ' +
+        // otp +
+        // '. Use this OTP to register.';
+        // var Otpurl = 'http://manage.rkadsindia.in/SendSMS/sendmsg.php?uname=DCARGO&pass=123456&send=DCARGO&dest=' + Mobilenum + '&msg=' + smsCont
+        // let tokens = jwt.sign({ data: rows }, SECRET_KEY, { expiresIn: '10s' })
+        // Request.get(Otpurl)
+        ResMsg.otp=otp
+        ResMsg.status = 'success'
+        ResMsg.token = tokens
+      } else {
+        ResMsg.message = 'Invalid Mobile Number'
+        ResMsg.status = 'failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// checkotp
+router.post('/checkotp', (req, res) => {
+  adminActivity.checkOtp(req.body, (err, row, status) => {
+    if (err) throw err
+      if (row.length) {
+        let result = {'message': 'OTP VERIFIED','status':status }
+        res.send(result)
+      } else {
+        let result = {'message': 'Wrong OTP','status':'' }
+        res.send(result)
+      }
+    })
+})
+
+// Add User
+router.post('/adduser', (request, response) => {  
+  let ResMsg = {}  
+  adminActivity.AddUser(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Registered Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
 router.post("/login1", function(req, res, next) {
   adminActivity.LoginAdmin(req.body, (err, rows) => {
     if (err) {
