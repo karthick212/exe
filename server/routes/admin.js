@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Request = require('request')
 const adminActivity = require("../controller/admin-Controller");
 const jwt = require("jsonwebtoken");
 var dbconfig = require("../config/db");
@@ -13,17 +14,18 @@ router.post('/otp', (request, response) => {
   let ResMsg = {}
   adminActivity.GenOtp(Mobilenum, (err, rows, otp) => {
     if (err) throw err
-      if (rows.length) {
-        // const smsCont =
-        // 'Dear Customer, your OTP for SMS notification registration is ' +
-        // otp +
-        // '. Use this OTP to register.';
-        // var Otpurl = 'http://manage.rkadsindia.in/SendSMS/sendmsg.php?uname=DCARGO&pass=123456&send=DCARGO&dest=' + Mobilenum + '&msg=' + smsCont
-        // let tokens = jwt.sign({ data: rows }, SECRET_KEY, { expiresIn: '10s' })
-        // Request.get(Otpurl)
+      console.log(rows)
+      if (rows.affectedRows>0) {
+        const smsCont =
+        'Dear Customer, your OTP for SMS notification registration is ' +
+        otp +
+        '. Use this OTP to register.';
+        var Otpurl = 'http://msg.spyderinfotech.com/app/smsapi/index.php?key=5befcba7d1a4d&type=text&contacts='+ Mobilenum+'&senderid=SPRINF&msg='+smsCont 
+        let tokens = jwt.sign({ data: rows }, SECRET_KEY, { expiresIn: '10s' })
+        Request.get(Otpurl)
         ResMsg.otp=otp
         ResMsg.status = 'success'
-        ResMsg.token = tokens
+        //ResMsg.token = tokens
       } else {
         ResMsg.message = 'Invalid Mobile Number'
         ResMsg.status = 'failed'
@@ -34,13 +36,13 @@ router.post('/otp', (request, response) => {
 
 // checkotp
 router.post('/checkotp', (req, res) => {
-  adminActivity.checkOtp(req.body, (err, row, status) => {
+  adminActivity.checkOtp(req.body, (err, row) => {
     if (err) throw err
       if (row.length) {
-        let result = {'message': 'OTP VERIFIED','status':status }
+        let result = {'message': 'OTP VERIFIED','status':'success' }
         res.send(result)
       } else {
-        let result = {'message': 'Wrong OTP','status':'' }
+        let result = {'message': 'Wrong OTP','status':'failed' }
         res.send(result)
       }
     })
@@ -49,16 +51,23 @@ router.post('/checkotp', (req, res) => {
 // Add User
 router.post('/adduser', (request, response) => {  
   let ResMsg = {}  
-  adminActivity.AddUser(request.body, (err, rows) => {
+  adminActivity.AddUser(request.body, (err, rows,status) => {
     if (err) throw err
-      if (rows.affectedRows>0) {      
-        ResMsg.status = 'success'
-        ResMsg.message = 'Registered Successfully'        
+      response.json(status)
+    })
+})
+
+// checkotp
+router.post('/userAuth', (req, res) => {
+  adminActivity.UserLoginAuth(req.body, (err, row) => {
+    if (err) throw err
+      if (row[0].cnt>0) {
+        let result = {'message': 'Logged In','status':'success' }
+        res.send(result)
       } else {
-        ResMsg.status = 'failed'
-        ResMsg.message = 'Failed'
+        let result = {'message': 'Wrong MobileNo & Password','status':'failed' }
+        res.send(result)
       }
-      response.json(ResMsg)
     })
 })
 

@@ -18,11 +18,12 @@ var CommonController = {
 		let arr=[loginid,todate,formname,primarycode,action]
 		let qry='INSERT INTO `tbllogs` (`LoginId`, `Logdate`, `FormName`, `PrimaryCode`, `Action`) VALUES (?, ?, ?, ?, ?)';
 		var dtt =dbconfig.query(qry,arr,(err,results) => {
-			if(results.affectedRows>0)
-				return 'success'
-			else
-				return 'failed'
-		})
+			if (err) throw err
+				if(results.affectedRows>0)
+					return 'success'
+				else
+					return 'failed'
+			})
 	}  
 
 }
