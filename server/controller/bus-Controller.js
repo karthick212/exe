@@ -245,6 +245,19 @@ getBus(user,callback) {
    else
      return callback(null, results)
  })
+},
+getServiceType(user,callback) {
+  let cond=""
+  var param=[]
+
+  let insertQuery = "select * from tblservicetype"
+  return dbconfig.query(insertQuery,param, (err, results) => {
+    if(err){
+     return callback(null, err)
+   }
+   else
+     return callback(null, results)
+ })
 }
 
 

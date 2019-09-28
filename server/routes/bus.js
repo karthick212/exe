@@ -269,4 +269,25 @@ router.get('/viewbus', (request, response) => {
 })
 })
 
+// View User
+router.get('/viewservicetype', (request, response) => {  
+  let ResMsg = {}
+  let res=request.query
+  var mobno=res.mobno;
+  var id=res.id;
+  busActivity.getServiceType(res, (err, rows) => {
+    if (err) throw err
+      if (rows.length>0) {      
+      ResMsg.status = 'success'
+      ResMsg.message = 'list of servicetype'
+      ResMsg.data=rows
+    } else {
+      ResMsg.message = 'There are no records found'
+      ResMsg.status = 'failed'
+    }
+    response.json(ResMsg)
+//response.send(JSON.stringify(ResMsg))
+})
+})
+
 module.exports = router
