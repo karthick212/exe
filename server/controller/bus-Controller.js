@@ -71,9 +71,9 @@ getStop(user,callback) {
 AddRoute(user,callback) {
 
   let todate=common.todaydate();
-  var arrMas=[user.routeno, user.sourceid, user.destinationid, user.platform,user.loginid,todate]
+  var arrMas=[user.routeno, user.sourceid, user.destinationid, user.platform,user.servicetypecode,user.loginid,todate]
   var arrDet=user.routedetails
-  let insertQuery = "INSERT INTO `tblbusroutemaster` (`RouteNo`, `SourceId`, `DestinationId`, `Platform`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,?,?,1,?,?)"
+  let insertQuery = "INSERT INTO `tblbusroutemaster` (`RouteNo`, `SourceId`, `DestinationId`, `Platform`, `ServiceTypeCode`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,?,?,?,1,?,?)"
   return dbconfig.query(insertQuery, arrMas, (err, results) => {
     if(err) throw err;
     arrDet.map(m=>{
@@ -94,9 +94,9 @@ AddRoute(user,callback) {
 },
 UpdateRoute(user,callback) {
   let todate=common.todaydate();  
-  var arrMas=[user.routeno, user.sourceid, user.destinationid, user.platform,user.loginid,todate,user.id]
+  var arrMas=[user.routeno, user.sourceid, user.destinationid, user.platform, user.servicetypecode,user.loginid,todate,user.id]
   var arrDet=user.routedetails
-  let insertQuery = 'Update `tblbusroutemaster` set RouteNo=?,SourceId=?,DestinationId=?,Platform=?,LoginId=?,SDate=?  where RouteId=? '
+  let insertQuery = 'Update `tblbusroutemaster` set RouteNo=?,SourceId=?,DestinationId=?,Platform=?,ServiceTypeCode=?,LoginId=?,SDate=?  where RouteId=? '
   dbconfig.query(insertQuery,arrMas, (err, results) => {
     if(err) throw err;
     dbconfig.query("delete from tblbusroutedetails where RouteId=?",user.id,(err,results2)=>{
@@ -153,7 +153,7 @@ getRoute(user,callback) {
     param=user.id
   }
 
-  let insertQuery = "select DISTINCT routeid,RouteNo,RouteName,LoginId, Platform from vw_busroute where isActive<>'0' "+cond
+  let insertQuery = "select DISTINCT routeid,RouteNo,RouteName,LoginId, Platform,ServiceType from vw_busroute where isActive<>'0' "+cond
   return dbconfig.query(insertQuery,param, (err, results) => {
     if(err){
      return callback(null, err)
@@ -186,8 +186,8 @@ getRouteDetails(user,callback) {
  AddBus(user,callback) {
 
   let todate=common.todaydate();
-  var arr1=[user.busno, user.busregno,user.servicetype,user.routeid,user.loginid,todate]
-  let insertQuery = "INSERT INTO `tblbus` (`BusNo`, `BusRegisterNo`, `ServiceType`, `RouteId`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,?,?,1,?,?);"
+  var arr1=[user.busno, user.busregno,user.routeid,user.loginid,todate]
+  let insertQuery = "INSERT INTO `tblbus` (`BusNo`, `BusRegisterNo`, `RouteId`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,?,1,?,?);"
   return dbconfig.query(insertQuery, arr1, (err, results) => {
     if(err) throw err;
     if (results.affectedRows > 0) {
@@ -202,7 +202,7 @@ getRouteDetails(user,callback) {
 UpdateBus(user,callback) {
   let todate=common.todaydate();  
   var arr1=[user.busno, user.busregno,user.servicetype,user.routeid,user.loginid,todate,user.id]
-  let insertQuery = 'Update `tblbus` set BusNo=?,BusRegisterNo=?,ServiceType=?,RouteId=?,LoginId=?,SDate=?  where BusId=?'
+  let insertQuery = 'Update `tblbus` set BusNo=?,BusRegisterNo=?,RouteId=?,LoginId=?,SDate=?  where BusId=?'
   dbconfig.query(insertQuery,arr1, (err, results) => {
     if(err) throw err;
     if (results.affectedRows > 0) {
