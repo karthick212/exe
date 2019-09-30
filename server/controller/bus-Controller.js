@@ -279,6 +279,134 @@ getBuses(user,callback) {
    else
      return callback(null, results)
  })
+},
+
+// Add Bus Pass
+ AddBusPass(user,callback) {
+
+  let todate=common.todaydate();
+  var arr1=[user.passtype, user.validity,user.fare,user.sourcecode,user.destinationcode,user.servicetypecode,user.loginid,todate]
+  let insertQuery = "INSERT INTO `tblbuspass` (`PassType`, `Validity`, `Fare`, `SouceCode`, `DestinationCode`, `ServiceTypeCode`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,?,?,?,?, 1,?,?);"
+  return dbconfig.query(insertQuery, arr1, (err, results) => {
+    if(err) throw err;
+    if (results.affectedRows > 0) {
+      common.LogData(user.loginid,'BusPassCreation',results.insertId,'Save');
+      return callback(null, results)
+    }
+    else {
+      return callback(null, results)  
+    }
+  })  
+},
+UpdateBusPass(user,callback) {
+  let todate=common.todaydate();  
+  var arr1=[user.passtype, user.validity,user.fare,user.sourcecode,user.destinationcode,user.servicetypecode,user.loginid,todate,user.id]
+  let insertQuery = 'Update `tblbuspass` set PassType=?,Validity=?,Fare=?,SouceCode=?,DestinationCode=?,ServiceTypeCode=?,LoginId=?,SDate=?  where id=?'
+  dbconfig.query(insertQuery,arr1, (err, results) => {
+    if(err) throw err;
+    if (results.affectedRows > 0) {
+      common.LogData(user.loginid,'BusPassCreation',user.id,'Update');
+      return callback(null, results)
+    }
+    else {
+      return callback(null, results)  
+    }
+  })
+},
+DeleteBusPass(user,callback) {
+  let insertQuery = 'Update `tblbuspass` set isActive=0  where id=?'
+  return dbconfig.query(insertQuery, [user.id,user.loginid], (err, results) => {
+    if(err) throw err;
+    if (results.affectedRows > 0) {
+      common.LogData(user.loginid,'BusPassCreation',user.id,'Delete');
+      return callback(null, results)
+    }
+    else {
+      return callback(null, results)  
+    }
+  })
+},
+getBusPass(user,callback) {
+  let cond=""
+  var param=[]
+  if(user.id!=undefined)
+  {
+    cond=" and id=?";
+    param=user.id
+  }
+
+  let insertQuery = "select * from vw_buspass where isActive<>'0' "+cond
+  return dbconfig.query(insertQuery,param, (err, results) => {
+    if(err){
+     return callback(null, err)
+   }
+   else
+     return callback(null, results)
+ })
+},
+
+// Add User Permission
+ AddUserPermission(user,callback) {
+
+  let todate=common.todaydate();
+  var arr1=[user.userid, user.permissions,user.loginid,todate]
+  let insertQuery = "INSERT INTO `tbluserpermission` (`Userid`, `Permissions`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,1,?,?);"
+  return dbconfig.query(insertQuery, arr1, (err, results) => {
+    if(err) throw err;
+    if (results.affectedRows > 0) {
+      common.LogData(user.loginid,'UserPermission',results.insertId,'Save');
+      return callback(null, results)
+    }
+    else {
+      return callback(null, results)  
+    }
+  })  
+},
+UpdateUserPermission(user,callback) {
+  let todate=common.todaydate();  
+  var arr1=[user.userid, user.permissions,user.loginid,todate,user.id]
+  let insertQuery = 'Update `tbluserpermission` set Userid=?,Permissions=?,LoginId=?,SDate=?  where id=?'
+  dbconfig.query(insertQuery,arr1, (err, results) => {
+    if(err) throw err;
+    if (results.affectedRows > 0) {
+      common.LogData(user.loginid,'UserPermission',user.id,'Update');
+      return callback(null, results)
+    }
+    else {
+      return callback(null, results)  
+    }
+  })
+},
+DeleteUserPermission(user,callback) {
+  let insertQuery = 'Update `tbluserpermission` set isActive=0  where id=?'
+  return dbconfig.query(insertQuery, [user.id,user.loginid], (err, results) => {
+    if(err) throw err;
+    if (results.affectedRows > 0) {
+      common.LogData(user.loginid,'UserPermission',user.id,'Delete');
+      return callback(null, results)
+    }
+    else {
+      return callback(null, results)  
+    }
+  })
+},
+getUserPermission(user,callback) {
+  let cond=""
+  var param=[]
+  if(user.id!=undefined)
+  {
+    cond=" and tbluserpermission.id=?";
+    param=user.id
+  }
+
+  let insertQuery = "select tbluserpermission.Userid,tbluserpermission.Permissions,tbluserpermission.isActive,tbluser.Username,tbluser.FullName from tbluserpermission INNER JOIN tbluser on tbluser.id=tbluserpermission.Userid where tbluserpermission.isActive<>'0' "+cond
+  return dbconfig.query(insertQuery,param, (err, results) => {
+    if(err){
+     return callback(null, err)
+   }
+   else
+     return callback(null, results)
+ })
 }
 
 }

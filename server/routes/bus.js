@@ -310,4 +310,141 @@ router.post('/getBuses', (request, response) => {
 })
 })
 
+// Add Bus Pass
+router.post('/addbuspass', (request, response) => {  
+  let ResMsg = {}  
+  busActivity.AddBusPass(request.body, (err, rows) => {
+
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Registered Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// Update User
+router.post('/updatebuspass', (request, response) => {  
+  let ResMsg = {}  
+  busActivity.UpdateBusPass(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Updated Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// Update User
+router.post('/deletebuspass', (request, response) => {  
+  let ResMsg = {}  
+  busActivity.DeleteBusPass(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Deleted Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+
+// View User
+router.get('/viewbuspass', (request, response) => {  
+  let ResMsg = {}
+  let res=request.query
+  busActivity.getBusPass(res, (err, rows) => {
+    if (err) throw err
+      if (rows.length>0) {      
+      ResMsg.status = 'success'
+      ResMsg.message = 'list of BusPass'
+      ResMsg.data=rows
+    } else {
+      ResMsg.message = 'There are no records found'
+      ResMsg.status = 'failed'
+    }
+    response.json(ResMsg)
+//response.send(JSON.stringify(ResMsg))
+})
+})
+
+// Add User Permission
+router.post('/adduserpermission', (request, response) => {  
+  let ResMsg = {}  
+  busActivity.AddUserPermission(request.body, (err, rows) => {
+
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Registered Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// Update User
+router.post('/updateuserpermission', (request, response) => {  
+  let ResMsg = {}  
+  busActivity.UpdateUserPermission(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Updated Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// Update User
+router.post('/deleteuserpermission', (request, response) => {  
+  let ResMsg = {}  
+  busActivity.DeleteUserPermission(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Deleted Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+
+// View User
+router.get('/viewuserpermission', (request, response) => {  
+  let ResMsg = {}
+  let res=request.query
+  busActivity.getUserPermission(res, (err, rows) => {
+    if (err) throw err
+      if (rows.length>0) {      
+      ResMsg.status = 'success'
+      ResMsg.message = 'list of Permissions'
+      ResMsg.data=rows
+    } else {
+      ResMsg.message = 'There are no records found'
+      ResMsg.status = 'failed'
+    }
+    response.json(ResMsg)
+//response.send(JSON.stringify(ResMsg))
+})
+})
 module.exports = router
