@@ -299,7 +299,7 @@ router.post('/getBuses', (request, response) => {
     if (err) throw err
       if (rows.length>0) {      
       ResMsg.status = 'success'
-      ResMsg.message = 'list of servicetype'
+      ResMsg.message = 'list of available buses'
       ResMsg.data=rows
     } else {
       ResMsg.message = 'There are no records found'

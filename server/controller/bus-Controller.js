@@ -262,34 +262,14 @@ getBuses(user,callback) {
   var param=[]
   if(user.sourcecode!=undefined && user.destinationcode!=undefined&&user.servicetypecode!=undefined)
   {
-    cond=" and SourceId=? and DestinationId=? and ServiceTypeCode=? ";
-    param=[user.sourcecode,user.destinationcode,user.servicetypecode]
-  }
-  else
-    return callback(null,[])
-  let insertQuery = "SELECT id,RouteId,busid,BusNo,RouteName FROM `vw_busmapping` where isActive<>'0' and isDrop<>1 "+cond
-  //AND date_add(Timing2,INTERVAL 11 day)>=CURRENT_TIMESTAMP()
-  return dbconfig.query(insertQuery,param, (err, results) => {
-    if(err){
-     return callback(null, err)
-   }
-   else
-     return callback(null, results)
- })
-},
-getBusRate(user,callback) {
-  let cond=""
-  var param=[]
-  if(user.sourcecode!=undefined && user.destinationcode!=undefined&&user.servicetypecode!=undefined)
-  {
     //cond=" and SourceId=? and DestinationId=? and ServiceTypeCode=? ";
     param=[user.sourcecode,user.servicetypecode,user.destinationcode,user.servicetypecode]
   }
   else
     return callback(null,[])
-  let insertQuery = "SELECT d1.id,d1.RouteId,d1.busid,d1.BusNo,d1.RouteName,d2.ApproxTime-d1.ApproxTime as ATime,d2.Fare-d1.Fare as Fare from(SELECT id,RouteId,busid,BusNo,RouteName,ApproxTime,Fare from vw_busmappingdetails WHERE stopid=? and ServiceTypeCode=?) as d1 "+
-  " INNER JOIN  (SELECT id,busid,routeid,ApproxTime,Fare from vw_busmappingdetails WHERE stopid=? and ServiceTypeCode=?) as d2 on "+
-  " d1.routeid=d2.routeid and d1.id=d2.id"
+  let insertQuery = "SELECT d1.id,d1.RouteId,d1.busid,d1.BusNo,d1.RouteName,d2.ApproxTime-d1.ApproxTime as ATime,d2.Fare-d1.Fare as Fare from(SELECT id,RouteId,busid,BusNo,RouteName,ApproxTime,Fare from vw_busmappingdetails WHERE isActive<>'0' and isDrop<>1 and stopid=? and ServiceTypeCode=?) as d1 "+
+  " INNER JOIN  (SELECT id,busid,routeid,ApproxTime,Fare from vw_busmappingdetails WHERE isActive<>'0' and isDrop<>1 and stopid=? and ServiceTypeCode=?) as d2 on "+
+  " d1.routeid=d2.routeid and d1.id=d2.id WHERE d2.Fare-d1.fare>0"
   //let insertQuery = "SELECT id,RouteId,busid,BusNo,RouteName FROM `vw_busmapping` where isActive<>'0' and isDrop<>1 "+cond
   //AND date_add(Timing2,INTERVAL 11 day)>=CURRENT_TIMESTAMP()
   return dbconfig.query(insertQuery,param, (err, results) => {
