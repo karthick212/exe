@@ -411,13 +411,13 @@ getUserPermission(user,callback) {
 getMenu(user,callback) {
   let cond=""
   var param=[]
-  // if(user.id!=undefined)
-  // {
-  //   cond=" and tbluserpermission.id=?";
-  //   param=user.id
-  // }
+  if(user.id!=undefined)
+  {
+    cond=" and id=?";
+    param=user.id
+  }
 
-  let insertQuery = "select * from tblmenu "
+  let insertQuery = "select * from tblmenu where id<>0 "+cond
   return dbconfig.query(insertQuery,param, (err, results) => {
     if(err){
      return callback(null, err)
