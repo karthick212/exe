@@ -447,4 +447,22 @@ router.get('/viewuserpermission', (request, response) => {
 //response.send(JSON.stringify(ResMsg))
 })
 })
+// View User
+router.get('/viewmenu', (request, response) => {  
+  let ResMsg = {}
+  let res=request.query
+  busActivity.getMenu(res, (err, rows) => {
+    if (err) throw err
+      if (rows.length>0) {      
+      ResMsg.status = 'success'
+      ResMsg.message = 'list of Permissions'
+      ResMsg.data=rows
+    } else {
+      ResMsg.message = 'There are no records found'
+      ResMsg.status = 'failed'
+    }
+    response.json(ResMsg)
+//response.send(JSON.stringify(ResMsg))
+})
+})
 module.exports = router

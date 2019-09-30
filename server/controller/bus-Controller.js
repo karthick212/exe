@@ -407,6 +407,24 @@ getUserPermission(user,callback) {
    else
      return callback(null, results)
  })
+},
+getMenu(user,callback) {
+  let cond=""
+  var param=[]
+  // if(user.id!=undefined)
+  // {
+  //   cond=" and tbluserpermission.id=?";
+  //   param=user.id
+  // }
+
+  let insertQuery = "select * from tblmenu "
+  return dbconfig.query(insertQuery,param, (err, results) => {
+    if(err){
+     return callback(null, err)
+   }
+   else
+     return callback(null, results)
+ })
 }
 
 }
