@@ -285,6 +285,12 @@ getBuses(user,callback) {
  AddBusPass(user,callback) {
 
   let todate=common.todaydate();
+  if(user.sourcecode==undefined)
+    user.sourcecode=0;
+  if(user.destinationcode==undefined)
+    user.destinationcode=0;
+  if(user.servicetypecode==undefined)
+    user.servicetypecode=0;
   var arr1=[user.passtype, user.validity,user.fare,user.sourcecode,user.destinationcode,user.servicetypecode,user.loginid,todate]
   let insertQuery = "INSERT INTO `tblbuspass` (`PassType`, `Validity`, `Fare`, `SouceCode`, `DestinationCode`, `ServiceTypeCode`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,?,?,?,?, 1,?,?);"
   return dbconfig.query(insertQuery, arr1, (err, results) => {
