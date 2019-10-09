@@ -155,7 +155,7 @@ router.post('/viewRegister',function(req,res,err){
     cond=" and Email = ? AND Password=?";
     arr=[user.email,user.password]
   }
-  var itemss=  dbconfig.query("select * from tbluser where isActive<>'0'"+cond,arr,function(err,result,fields){
+  var itemss=  dbconfig.query("select * from vw_user where isActive<>'0'"+cond,arr,function(err,result,fields){
     if(err){
       res.json(err);
     }else{

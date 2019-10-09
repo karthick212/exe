@@ -356,7 +356,7 @@ getBusPass(user,callback) {
 
   let todate=common.todaydate();
   var arr1=[user.userid, user.permissions,user.loginid,todate]
-  let insertQuery = "INSERT INTO `tbluserpermission` (`Userid`, `Permissions`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,1,?,?);"
+  let insertQuery = "INSERT INTO `tbluserpermission` (`UserType`, `Permissions`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,1,?,?);"
   return dbconfig.query(insertQuery, arr1, (err, results) => {
     if(err) throw err;
     if (results.affectedRows > 0) {
@@ -371,7 +371,7 @@ getBusPass(user,callback) {
 UpdateUserPermission(user,callback) {
   let todate=common.todaydate();  
   var arr1=[user.userid, user.permissions,user.loginid,todate,user.id]
-  let insertQuery = 'Update `tbluserpermission` set Userid=?,Permissions=?,LoginId=?,SDate=?  where id=?'
+  let insertQuery = 'Update `tbluserpermission` set UserType=?,Permissions=?,LoginId=?,SDate=?  where id=?'
   dbconfig.query(insertQuery,arr1, (err, results) => {
     if(err) throw err;
     if (results.affectedRows > 0) {
@@ -405,7 +405,7 @@ getUserPermission(user,callback) {
     param=user.id
   }
 
-  let insertQuery = "select tbluserpermission.Userid,tbluserpermission.Permissions,tbluserpermission.isActive,tbluser.Username,tbluser.FullName from tbluserpermission INNER JOIN tbluser on tbluser.id=tbluserpermission.Userid where tbluserpermission.isActive<>'0' "+cond
+  let insertQuery = "select tbluserpermission.UserType,tbluserpermission.Permissions,tbluserpermission.isActive,tbluser.Username,tbluser.FullName from tbluserpermission INNER JOIN tbluser on tbluser.id=tbluserpermission.Userid where tbluserpermission.isActive<>'0' "+cond
   return dbconfig.query(insertQuery,param, (err, results) => {
     if(err){
      return callback(null, err)
