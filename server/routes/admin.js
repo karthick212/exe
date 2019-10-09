@@ -136,7 +136,7 @@ router.post("/login", function(req, res, next) {
     if (err) {
       res.send("Server Error");
     } else {
-      if(count[0].cnt>0)
+      if(rows[0].cnt>0)
   res.json({"status":"success","message":""});
 else 
   res.json({"status":"failed","message":"There is no email address found"});
@@ -155,7 +155,7 @@ router.post('/viewRegister',function(req,res,err){
     cond=" and Email = ? AND Password=?";
     arr=[user.email,user.password]
   }
-  var itemss=  dbconfig.query("select * from tbl_register where isActive<>'0'"+cond,arr,function(err,result,fields){
+  var itemss=  dbconfig.query("select * from tbluser where isActive<>'0'"+cond,arr,function(err,result,fields){
     if(err){
       res.json(err);
     }else{

@@ -76,13 +76,13 @@ var adminController = {
   LoginAdmin(data, callback) {
     var username = data.email;
     var password = data.password;
-    let query = "SELECT count(*) as cnt FROM tbl_register WHERE Email = ? AND Password=?";
+    let query = "SELECT count(*) as cnt FROM tbluser WHERE Email = ? AND Password=?";
     dbconfig.query(query, [username, password], callback);
   },
   mailAuth(data, callback) {
     var username = data.email;
     //var password = data.password;
-    let query = "SELECT count(*) as cnt FROM tbl_register WHERE Email = ?";
+    let query = "SELECT count(*) as cnt FROM tbluser WHERE Email = ?";
     dbconfig.query(query, [username], (err,results)=>{
       //console.log(results[0])
       return callback(err,results);
