@@ -401,11 +401,11 @@ getUserPermission(user,callback) {
   var param=[]
   if(user.id!=undefined)
   {
-    cond=" and tbluserpermission.id=?";
+    cond=" and tbluserpermission.Role=?";
     param=user.id
   }
 
-  let insertQuery = "select tbluserpermission.UserType,tbluserpermission.Permissions,tbluserpermission.isActive,tbluser.Username,tbluser.FullName from tbluserpermission INNER JOIN tbluser on tbluser.id=tbluserpermission.Userid where tbluserpermission.isActive<>'0' "+cond
+  let insertQuery = "select tbluserpermission.UserType,tbluserpermission.Permissions,tbluserpermission.isActive,tbluser.Username,tbluser.FullName from tbluserpermission INNER JOIN tbluser on tbluser.Role=tbluserpermission.UserType where tbluserpermission.isActive<>'0' "+cond
   return dbconfig.query(insertQuery,param, (err, results) => {
     if(err){
      return callback(null, err)
