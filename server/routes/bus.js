@@ -448,9 +448,10 @@ router.get('/viewuserpermission', (request, response) => {
 })
 })
 // View User
-router.get('/viewmenu', (request, response) => {  
+router.post('/viewmenu', (request, response) => {  
   let ResMsg = {}
-  let res=request.query
+  //let res=request.query
+  let res=request.body
   busActivity.getMenu(res, (err, rows) => {
     if (err) throw err
       if (rows.length>0) {      

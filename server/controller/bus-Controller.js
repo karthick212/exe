@@ -401,11 +401,11 @@ getUserPermission(user,callback) {
   var param=[]
   if(user.id!=undefined)
   {
-    cond=" and tbluserpermission.Role=?";
+    cond=" and tbluserpermission.id=?";
     param=user.id
   }
 
-  let insertQuery = "select tbluserpermission.UserType,tbluserpermission.Permissions,tbluserpermission.isActive,tbluser.Username,tbluser.FullName from tbluserpermission INNER JOIN tbluser on tbluser.Role=tbluserpermission.UserType where tbluserpermission.isActive<>'0' "+cond
+  let insertQuery = "select tbluserpermission.id,tbluserpermission.UserType,tbluserpermission.Permissions,tbluserpermission.isActive,tbluser.Username,tbluser.FullName from tbluserpermission INNER JOIN tbluser on tbluser.Role=tbluserpermission.UserType where tbluserpermission.isActive<>'0' "+cond
   return dbconfig.query(insertQuery,param, (err, results) => {
     if(err){
      return callback(null, err)
@@ -419,10 +419,10 @@ getMenu(user,callback) {
   var param=[]
   if(user.id!=undefined)
   {
-    cond=" and id=?";
-    param=user.id
+    cond=" and id in (?)";
+    var arr=user.id.split(",");
+    param=[arr]
   }
-
   let insertQuery = "select * from tblmenu where id<>0 "+cond
   return dbconfig.query(insertQuery,param, (err, results) => {
     if(err){
@@ -432,7 +432,6 @@ getMenu(user,callback) {
      return callback(null, results)
  })
 }
-
 }
 
 module.exports = UserController
