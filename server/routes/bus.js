@@ -258,7 +258,7 @@ router.get('/viewbus', (request, response) => {
     if (err) throw err
       if (rows.length>0) {      
       ResMsg.status = 'success'
-      ResMsg.message = 'list of stop'
+      ResMsg.message = 'list of buses'
       ResMsg.data=rows
     } else {
       ResMsg.message = 'There are no records found'
@@ -457,6 +457,26 @@ router.post('/viewmenu', (request, response) => {
       if (rows.length>0) {      
       ResMsg.status = 'success'
       ResMsg.message = 'list of Permissions'
+      ResMsg.data=rows
+    } else {
+      ResMsg.message = 'There are no records found'
+      ResMsg.status = 'failed'
+    }
+    response.json(ResMsg)
+//response.send(JSON.stringify(ResMsg))
+})
+})
+
+// View Nearest stops
+router.post('/neareststops', (request, rcmesponse) => {  
+  let ResMsg = {}
+  //let res=request.query
+  let res=request.body
+  busActivity.NearestStops(res, (err, rows) => {
+    if (err) throw err
+      if (rows.length>0) {      
+      ResMsg.status = 'success'
+      ResMsg.message = 'list of Stops'
       ResMsg.data=rows
     } else {
       ResMsg.message = 'There are no records found'

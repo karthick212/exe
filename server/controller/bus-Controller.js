@@ -1,5 +1,7 @@
 var dbconfig = require('../config/db')
 const common = require('../controller/common-Controller')
+var distance = require('google-distance');
+distance.apiKey = 'AIzaSyCZsnc36jrvx7sdu0iHfhAbtGGZXFOJ2nA';
 
 var UserController = {
  // User Registration
@@ -431,7 +433,20 @@ getMenu(user,callback) {
    else
      return callback(null, results)
  })
+},
+NearestStops(user,callback) {
+  let cond=""
+  var param=[user.latitude,user.longitude,user.latitude]
+  let dqry='SELECT Stopid,StopLat,StopLong,StopName, ( 3959 * acos( cos( radians(?) ) * cos( radians( StopLat ) ) * cos( radians( StopLong ) - radians(?) ) + sin( radians(?) ) * sin( radians( StopLat ) ) ) ) AS distance FROM tblbusstop HAVING distance < 2 ORDER BY distance LIMIT 0 , 10'
+  return dbconfig.query(dqry,param, (err, results) => {
+    if(err){
+     return callback(null, err)
+   }
+   else
+     return callback(null, results)
+ })
 }
+
 }
 
 module.exports = UserController
