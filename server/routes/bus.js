@@ -71,14 +71,14 @@ router.get('/viewstop', (request, response) => {
   busActivity.getStop(res, (err, rows) => {
     if (err) throw err
       if (rows.length>0) {      
-      ResMsg.status = 'success'
-      ResMsg.message = 'list of stop'
-      ResMsg.data=rows
-    } else {
-      ResMsg.message = 'There are no records found'
-      ResMsg.status = 'failed'
-    }
-    response.json(ResMsg)
+        ResMsg.status = 'success'
+        ResMsg.message = 'list of stop'
+        ResMsg.data=rows
+      } else {
+        ResMsg.message = 'There are no records found'
+        ResMsg.status = 'failed'
+      }
+      response.json(ResMsg)
 //response.send(JSON.stringify(ResMsg))
 })
 })
@@ -141,7 +141,7 @@ router.get('/viewstation', (request, response) => {
   busActivity.getStation(res, (err, rows) => {
     if (err) throw err
       console.log(rows);
-      if (rows.length>0) {      
+    if (rows.length>0) {      
       ResMsg.status = 'success'
       ResMsg.message = 'list of routes'
       ResMsg.data=rows
@@ -164,7 +164,7 @@ router.get('/viewroute', (request, response) => {
   busActivity.getRoute(res, (err, rows) => {
     if (err) throw err
       console.log(rows);
-      if (rows.length>0) {      
+    if (rows.length>0) {      
       ResMsg.status = 'success'
       ResMsg.message = 'list of routes'
       ResMsg.data=rows
@@ -185,14 +185,14 @@ router.get('/viewroutedetails', (request, response) => {
   busActivity.getRouteDetails(res, (err, rows) => {
     if (err) throw err
       if (rows.length>0) {      
-      ResMsg.status = 'success'
-      ResMsg.message = 'list of routes'
-      ResMsg.data=rows
-    } else {
-      ResMsg.message = 'There are no records found'
-      ResMsg.status = 'failed'
-    }
-    response.json(ResMsg)
+        ResMsg.status = 'success'
+        ResMsg.message = 'list of routes'
+        ResMsg.data=rows
+      } else {
+        ResMsg.message = 'There are no records found'
+        ResMsg.status = 'failed'
+      }
+      response.json(ResMsg)
 //response.send(JSON.stringify(ResMsg))
 })
 })
@@ -257,14 +257,14 @@ router.get('/viewbus', (request, response) => {
   busActivity.getBus(res, (err, rows) => {
     if (err) throw err
       if (rows.length>0) {      
-      ResMsg.status = 'success'
-      ResMsg.message = 'list of buses'
-      ResMsg.data=rows
-    } else {
-      ResMsg.message = 'There are no records found'
-      ResMsg.status = 'failed'
-    }
-    response.json(ResMsg)
+        ResMsg.status = 'success'
+        ResMsg.message = 'list of buses'
+        ResMsg.data=rows
+      } else {
+        ResMsg.message = 'There are no records found'
+        ResMsg.status = 'failed'
+      }
+      response.json(ResMsg)
 //response.send(JSON.stringify(ResMsg))
 })
 })
@@ -278,14 +278,14 @@ router.get('/viewservicetype', (request, response) => {
   busActivity.getServiceType(res, (err, rows) => {
     if (err) throw err
       if (rows.length>0) {      
-      ResMsg.status = 'success'
-      ResMsg.message = 'list of servicetype'
-      ResMsg.data=rows
-    } else {
-      ResMsg.message = 'There are no records found'
-      ResMsg.status = 'failed'
-    }
-    response.json(ResMsg)
+        ResMsg.status = 'success'
+        ResMsg.message = 'list of servicetype'
+        ResMsg.data=rows
+      } else {
+        ResMsg.message = 'There are no records found'
+        ResMsg.status = 'failed'
+      }
+      response.json(ResMsg)
 //response.send(JSON.stringify(ResMsg))
 })
 })
@@ -298,14 +298,14 @@ router.post('/getBuses', (request, response) => {
   busActivity.getBuses(res, (err, rows) => {
     if (err) throw err
       if (rows.length>0) {      
-      ResMsg.status = 'success'
-      ResMsg.message = 'list of available buses'
-      ResMsg.data=rows
-    } else {
-      ResMsg.message = 'There are no records found'
-      ResMsg.status = 'failed'
-    }
-    response.json(ResMsg)
+        ResMsg.status = 'success'
+        ResMsg.message = 'list of available buses'
+        ResMsg.data=rows
+      } else {
+        ResMsg.message = 'There are no records found'
+        ResMsg.status = 'failed'
+      }
+      response.json(ResMsg)
 //response.send(JSON.stringify(ResMsg))
 })
 })
@@ -367,14 +367,14 @@ router.get('/viewbuspass', (request, response) => {
   busActivity.getBusPass(res, (err, rows) => {
     if (err) throw err
       if (rows.length>0) {      
-      ResMsg.status = 'success'
-      ResMsg.message = 'list of BusPass'
-      ResMsg.data=rows
-    } else {
-      ResMsg.message = 'There are no records found'
-      ResMsg.status = 'failed'
-    }
-    response.json(ResMsg)
+        ResMsg.status = 'success'
+        ResMsg.message = 'list of BusPass'
+        ResMsg.data=rows
+      } else {
+        ResMsg.message = 'There are no records found'
+        ResMsg.status = 'failed'
+      }
+      response.json(ResMsg)
 //response.send(JSON.stringify(ResMsg))
 })
 })
@@ -436,14 +436,14 @@ router.get('/viewuserpermission', (request, response) => {
   busActivity.getUserPermission(res, (err, rows) => {
     if (err) throw err
       if (rows.length>0) {      
-      ResMsg.status = 'success'
-      ResMsg.message = 'list of Permissions'
-      ResMsg.data=rows
-    } else {
-      ResMsg.message = 'There are no records found'
-      ResMsg.status = 'failed'
-    }
-    response.json(ResMsg)
+        ResMsg.status = 'success'
+        ResMsg.message = 'list of Permissions'
+        ResMsg.data=rows
+      } else {
+        ResMsg.message = 'There are no records found'
+        ResMsg.status = 'failed'
+      }
+      response.json(ResMsg)
 //response.send(JSON.stringify(ResMsg))
 })
 })
@@ -455,35 +455,86 @@ router.post('/viewmenu', (request, response) => {
   busActivity.getMenu(res, (err, rows) => {
     if (err) throw err
       if (rows.length>0) {      
-      ResMsg.status = 'success'
-      ResMsg.message = 'list of Permissions'
-      ResMsg.data=rows
-    } else {
-      ResMsg.message = 'There are no records found'
-      ResMsg.status = 'failed'
-    }
-    response.json(ResMsg)
+        ResMsg.status = 'success'
+        ResMsg.message = 'list of Permissions'
+        ResMsg.data=rows
+      } else {
+        ResMsg.message = 'There are no records found'
+        ResMsg.status = 'failed'
+      }
+      response.json(ResMsg)
 //response.send(JSON.stringify(ResMsg))
 })
 })
 
 // View Nearest stops
-router.post('/neareststops', (request, rcmesponse) => {  
+router.post('/neareststops', (request, response) => {  
   let ResMsg = {}
   //let res=request.query
   let res=request.body
   busActivity.NearestStops(res, (err, rows) => {
     if (err) throw err
       if (rows.length>0) {      
-      ResMsg.status = 'success'
-      ResMsg.message = 'list of Stops'
-      ResMsg.data=rows
-    } else {
-      ResMsg.message = 'There are no records found'
-      ResMsg.status = 'failed'
-    }
-    response.json(ResMsg)
+        ResMsg.status = 'success'
+        ResMsg.message = 'list of Stops'
+        ResMsg.data=rows
+      } else {
+        ResMsg.message = 'There are no records found'
+        ResMsg.status = 'failed'
+      }
+      response.json(ResMsg)
 //response.send(JSON.stringify(ResMsg))
 })
 })
+
+// Add General Bookking
+router.post('/addgeneralbooking', (request, response) => {  
+  let ResMsg = {}  
+  busActivity.BillNoGen((res)=>{
+    request.body.bserial=res;
+  request.body.bid='G'+FormatNumberLength(res,5);
+  console.log(res)
+    busActivity.AddGeneralBooking(request.body, (err, rows) => {
+      if (err) throw err
+        if (rows.affectedRows>0) {      
+          ResMsg.status = 'success'
+          ResMsg.message = 'Registered Successfully'        
+        } else {
+          ResMsg.status = 'failed'
+          ResMsg.message = 'Failed'
+        }
+        response.json(ResMsg)
+      })
+  })  
+})
+
+// Add Pass Booking
+router.post('/addpassbooking', (request, response) => {  
+  let ResMsg = {}  
+  busActivity.BillNoGen((res)=>{
+    request.body.bserial=res;
+  request.body.bid='P'+FormatNumberLength(res,5);
+  console.log(res)
+    busActivity.AddPassBooking(request.body, (err, rows) => {
+      if (err) throw err
+        if (rows.affectedRows>0) {      
+          ResMsg.status = 'success'
+          ResMsg.message = 'Registered Successfully'        
+        } else {
+          ResMsg.status = 'failed'
+          ResMsg.message = 'Failed'
+        }
+        response.json(ResMsg)
+      })
+  })  
+})
+
+function FormatNumberLength(num, length) {
+    var r = "" + num;
+    while (r.length < length) {
+        r = "0" + r;
+    }
+    return r;
+}
+
 module.exports = router

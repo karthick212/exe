@@ -1,5 +1,8 @@
 const dbconfig = require('../config/db')
 const Request = require("request");
+var nodemailer = require('nodemailer');
+var EmailTemplate = require('email-templates');
+
 var CommonController = {
 	todaydate() {
 		var date = new Date();
@@ -24,7 +27,43 @@ var CommonController = {
 				else
 					return 'failed'
 			})
-	}  
+	},
+	SendMail(response,text,cb) 
+	{
+		var res=response;
+		var transporter = nodemailer.createTransport({
+			service: res.Service,
+			host: res.Host,  
+			secureConnection: true,
+			port: res.Port,
+			auth: {
+      user: res.Username, // generated ethereal user
+      pass: res.Password // generated ethereal password
+  }
+//     ,
+//     tls:{
+// secureProtocol: "TLSv1_method"
+// }
+});
+
+		var mailOptions = {
+			from: res.From,
+			to: res.To,
+			subject: res.Subject,        
+			html: text
+		};
+
+		transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+				console.log("err")
+				return cb({"msg": error});
+			} else {
+				console.log("success")
+				return cb({"msg":info.response});
+			}
+		});
+
+	}
 
 }
 module.exports = CommonController;

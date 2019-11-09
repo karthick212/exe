@@ -183,7 +183,7 @@ getRouteDetails(user,callback) {
      return callback(null, results)
  })
 },
- 
+
  // Add Bus creation
  AddBus(user,callback) {
 
@@ -284,7 +284,7 @@ getBuses(user,callback) {
 },
 
 // Add Bus Pass
- AddBusPass(user,callback) {
+AddBusPass(user,callback) {
 
   let todate=common.todaydate();
   if(user.sourcecode==undefined)
@@ -354,7 +354,7 @@ getBusPass(user,callback) {
 },
 
 // Add User Permission
- AddUserPermission(user,callback) {
+AddUserPermission(user,callback) {
 
   let todate=common.todaydate();
   var arr1=[user.userid, user.permissions,user.loginid,todate]
@@ -445,6 +445,89 @@ NearestStops(user,callback) {
    else
      return callback(null, results)
  })
+},
+
+// Add general Booking
+AddGeneralBooking(user,callback) {
+  let qrcode=this.QRCodeGenerator(10)
+  let todate=common.todaydate();
+  var date = new Date();
+  var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+  hours = hours < 10 ? "0" + hours : hours;
+  var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+  var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();        
+  var time = hours + ":" + minutes + ":" + seconds;
+
+  var arr1=[user.bid,user.bserial,todate,time,user.sourcecode,user.destinationcode,user.servicetype,user.passengertype,user.qty,user.total,user.disc,user.nettotal,user.mappingcode,'',user.userid,user.mobno,qrcode,1,user.userid,todate]
+  let insertQuery = "INSERT INTO `tblgeneralbooking` (`BookingId`, `BookingSerial`, `BookingDate`, `BookingTime`, `sourcecode`, `destinationcode`, `ServiceType`, `PassengerType`, `Qty`, `Total`, `Disc`, `NetTotal`, `MappingCode`, `Remarks`, `UserID`, `MobileNo`, `QRCode`, `isActive`, `LoginID`, `SDate`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+  return dbconfig.query(insertQuery, arr1, (err, results) => {
+    if(err) throw err;
+    if (results.affectedRows > 0) 
+    {
+      let arr2=["General",user.bid,user.userid,user.mobno,0,0,qrcode,user.mappingcode]
+      let insertQuery2 = "INSERT INTO `tblbookingstatus` (`BookingType`, `BookingID`, `UserID`, `MobileNo`, `isPickup`, `isDrop`, `QRCode`, `MappingCode`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+      return dbconfig.query(insertQuery2, arr2, (err, results1) => {
+        if (results.affectedRows > 0) 
+        {
+          common.LogData(user.userid,'GeneralBooking',results.insertId,'Save');
+          return callback(null, results)
+        }
+      })
+    }
+    else {
+      return callback(null, results)  
+    }
+  })  
+},
+
+// Add Pass Booking
+AddPassBooking(user,callback) {
+  let qrcode=this.QRCodeGenerator(10)
+  let todate=common.todaydate();
+  var date = new Date();
+  var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+  hours = hours < 10 ? "0" + hours : hours;
+  var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+  var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();        
+  var time = hours + ":" + minutes + ":" + seconds;
+
+  var arr1=[user.bid,user.bserial,todate,time,user.sourcecode,user.destinationcode,user.servicetype,user.total,user.disc,user.nettotal,'',user.userid,user.mobno,qrcode,1,user.userid,todate,user.passtype,user.validity,user.passcode]
+  let insertQuery = "INSERT INTO `tblpassbooking` (`BookingId`, `BookingSerial`, `BookingDate`, `BookingTime`, `sourcecode`, `destinationcode`, `ServiceType`, `Total`, `Disc`, `NetTotal`, `Remarks`, `UserID`, `MobileNo`, `QRCode`, `isActive`, `LoginID`, `SDate`, `PassType`, `Validity`, `PassCode`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+  return dbconfig.query(insertQuery, arr1, (err, results) => {
+    if(err) throw err;
+    if (results.affectedRows > 0) 
+    {
+      let arr2=["Pass",user.bid,user.userid,user.mobno,0,0,qrcode,user.passcode]
+      let insertQuery2 = "INSERT INTO `tblbookingstatus` (`BookingType`, `BookingID`, `UserID`, `MobileNo`, `isPickup`, `isDrop`, `QRCode`, `MappingCode`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+      return dbconfig.query(insertQuery2, arr2, (err, results1) => {
+        if (results.affectedRows > 0) 
+        {
+          common.LogData(user.userid,'PassBooking',results.insertId,'Save');
+          return callback(null, results)
+        }
+      })
+    }
+    else {
+      return callback(null, results)  
+    }
+  })  
+},
+
+BillNoGen(cb){
+  let qry='select ifnull(max(BookingSerial),0)+1 as cnt from tblgeneralbooking';
+  return dbconfig.query(qry,(err,results) => {
+    if(err) throw err;
+    return cb(results[0].cnt);
+  })
+},
+QRCodeGenerator(length) {
+ var result           = '';
+ var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+ var charactersLength = characters.length;
+ for ( var i = 0; i < length; i++ ) {
+  result += characters.charAt(Math.floor(Math.random() * charactersLength));
+}
+return result;
 }
 
 }
