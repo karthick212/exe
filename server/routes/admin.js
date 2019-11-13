@@ -278,6 +278,22 @@ router.post('/updatebusmapping', (request, response) => {
 })
 
 // Update User
+router.post('/updatebusdropmapping', (request, response) => {  
+  let ResMsg = {}  
+  adminActivity.UpdateDropMapping(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Updated Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// Update User
 router.post('/deletebusmapping', (request, response) => {  
   let ResMsg = {}  
   adminActivity.DeleteMapping(request.body, (err, rows) => {

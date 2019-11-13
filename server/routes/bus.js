@@ -12,6 +12,22 @@ var dbconfig = require('../config/db')
 const path = require('path');
 
 // Add User
+router.post('/addstopbulk', (request, response) => {  
+  let ResMsg = {}  
+  busActivity.AddStopBulk(request.body, (err, rows) => {
+    if (err) throw err
+      if (rows.affectedRows>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'Registered Successfully'        
+      } else {
+        ResMsg.status = 'failed'
+        ResMsg.message = 'Failed'
+      }
+      response.json(ResMsg)
+    })
+})
+
+// Add User
 router.post('/addstop', (request, response) => {  
   let ResMsg = {}  
   console.log(request.body)
@@ -247,7 +263,6 @@ router.post('/deletebus', (request, response) => {
     })
 })
 
-
 // View User
 router.get('/viewbus', (request, response) => {  
   let ResMsg = {}
@@ -268,6 +283,28 @@ router.get('/viewbus', (request, response) => {
 //response.send(JSON.stringify(ResMsg))
 })
 })
+
+// View Bustimings
+router.get('/viewbustimings', (request, response) => {  
+  let ResMsg = {}
+  let res=request.query
+  var mobno=res.mobno;
+  var id=res.id;
+  busActivity.getBusTimings(res, (err, rows) => {
+    if (err) throw err
+      if (rows.length>0) {      
+        ResMsg.status = 'success'
+        ResMsg.message = 'list of buses with timings'
+        ResMsg.data=rows
+      } else {
+        ResMsg.message = 'There are no records found'
+        ResMsg.status = 'failed'
+      }
+      response.json(ResMsg)
+//response.send(JSON.stringify(ResMsg))
+})
+})
+
 
 // View User
 router.get('/viewservicetype', (request, response) => {  

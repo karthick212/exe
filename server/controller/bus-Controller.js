@@ -5,6 +5,29 @@ distance.apiKey = 'AIzaSyCZsnc36jrvx7sdu0iHfhAbtGGZXFOJ2nA';
 
 var UserController = {
  // User Registration
+ AddStopBulk(user1,callback) {
+  var idd=0;
+  let todate=common.todaydate();
+  user1.forEach(function(user,id){
+    var arr1=[user.stopname, user.stoplong, user.stoplat,user.stoptype,'Karnataka',user.loginid,todate]
+    let insertQuery = "INSERT INTO `tblbusstop` (`StopName`, `StopLong`, `StopLat`, `StopType`, `Area`, `isActive`, `LoginId`, `SDate`) VALUES (?, ?, ?, ?, ?, 1, ?, ?);"
+    return dbconfig.query(insertQuery, arr1, (err, results) => {
+      if(err) throw err;
+      if (results.affectedRows > 0) {
+        //return callback(null, results)
+        if(idd==0)
+         { common.LogData(user.loginid,'StopCreation',results.insertId,'Save');         
+       idd++;
+     }
+   }
+   else {
+    return callback(null, "failed")      
+  }
+})  
+  })
+  return callback(null,"success");
+},
+ // User Registration
  AddStop(user,callback) {
 
   let todate=common.todaydate();
@@ -188,10 +211,18 @@ getRouteDetails(user,callback) {
  AddBus(user,callback) {
 
   let todate=common.todaydate();
+  var arrDet=user.bustimings
   var arr1=[user.busno, user.busregno,user.routeid,user.loginid,todate]
   let insertQuery = "INSERT INTO `tblbus` (`BusNo`, `BusRegisterNo`, `RouteId`, `isActive`, `LoginId`, `SDate`) VALUES (?,?,?,1,?,?);"
   return dbconfig.query(insertQuery, arr1, (err, results) => {
     if(err) throw err;
+    arrDet.map(m=>{
+      let arr1=[results.insertId,m.departure,m.arrival]
+      let qry="INSERT INTO `tblbustimings` (`BusId`, `departure`, `arrival`) VALUES (?,?,?)"
+      return dbconfig.query(qry,arr1,(err,results1)=>{
+        if(err) throw err;
+      })
+    })
     if (results.affectedRows > 0) {
       common.LogData(user.loginid,'BusCreation',results.insertId,'Save');
       return callback(null, results)
@@ -202,11 +233,21 @@ getRouteDetails(user,callback) {
   })  
 },
 UpdateBus(user,callback) {
-  let todate=common.todaydate();  
+  let todate=common.todaydate();
+  var arrDet=user.bustimings    
   var arr1=[user.busno, user.busregno,user.servicetype,user.routeid,user.loginid,todate,user.id]
   let insertQuery = 'Update `tblbus` set BusNo=?,BusRegisterNo=?,RouteId=?,LoginId=?,SDate=?  where BusId=?'
   dbconfig.query(insertQuery,arr1, (err, results) => {
     if(err) throw err;
+    dbconfig.query("delete from tblbustimings where BusId=?",user.id,(err,results2)=>{
+      arrDet.map(m=>{
+        let arr1=[user.id,m.departure,m.arrival]
+        let qry="INSERT INTO `tblbusroutedetails` (`BusId`, `departure`, `arrival`) VALUES (?,?,?)"
+        return dbconfig.query(qry,arr1,(err,results1)=>{
+          if(err) throw err;
+        })
+      })
+    })
     if (results.affectedRows > 0) {
       common.LogData(user.loginid,'BusCreation',user.id,'Update');
       return callback(null, results)
@@ -239,6 +280,29 @@ getBus(user,callback) {
   }
 
   let insertQuery = "select * from vw_bus where isActive<>'0' "+cond
+  return dbconfig.query(insertQuery,param, (err, results) => {
+    if(err){
+     return callback(null, err)
+   }
+   else
+     return callback(null, results)
+ })
+},
+getBusTimings(user,callback) {
+  let cond=""
+  var param=[]
+  if(user.id!=undefined)
+  {
+    cond=" and BusId=?";
+    param=user.id
+  }
+  else if(user.busno!=undefined)
+  {
+    cond=" and BusNo=?";
+    param=user.busno
+  }
+
+  let insertQuery = "select * from vw_bustimings where isActive<>'0' "+cond
   return dbconfig.query(insertQuery,param, (err, results) => {
     if(err){
      return callback(null, err)

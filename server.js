@@ -9,6 +9,7 @@ config = require('./config/db'),
 adminRoutes = require('./server/routes/admin');
 userRoutes = require('./server/routes/user');
 busRoutes = require('./server/routes/bus');
+testRoutes = require('./server/routes/test');
 
 config.connect(function(err) {
   
@@ -32,6 +33,7 @@ config.connect(function(err) {
       app.use('/api/admin', adminRoutes);
       app.use('/api/user', userRoutes);
       app.use('/api/bus', busRoutes);
+      app.use('/api/test',testRoutes);
       app.set('view engine', 'html');
       const port = process.env.PORT || 5000;
 

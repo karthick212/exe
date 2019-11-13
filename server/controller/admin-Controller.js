@@ -198,6 +198,22 @@ UpdateMapping(user,callback) {
     }
   })
 },
+UpdateDropMapping(user,callback) {
+  let todate=common.todaydate();
+  if(user.droptime==undefined)
+    user.droptime=todate
+  var arr1=[user.id,user.droptime]
+  let insertQuery = 'Update `tblbusmapping` set isDrop=1,DropTime=?  where id=?'
+  return dbconfig.query(insertQuery,arr1, (err, results) => {
+    if (results.affectedRows > 0) {
+      common.LogData(user.loginid,'BusMappingDrop',user.id,'Update');
+      return callback(null, results)
+    }
+    else {
+      return callback(null, results)  
+    }
+  })
+},
 DeleteMapping(user,callback) {
   let insertQuery = 'Update `tblbusmapping` set isActive=0  where id=?'
   return dbconfig.query(insertQuery, [user.id,user.loginid], (err, results) => {
