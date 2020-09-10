@@ -9874,3 +9874,9 @@ div[disabled] {
          pointer-events: none;
     opacity: 0.4;
       }
+
+      .error {
+  font-size: small;
+  font-weight: 500;
+  color: red;
+}
